@@ -20,7 +20,7 @@ export default function Header() {
 
   return (
     <header className="border-b bg-white shadow-sm">
-      <div className="container flex h-20 items-center justify-between px-4 md:px-6">
+      <div className="container flex h-20 items-center px-4 md:px-6">
         {/* Brand Name with Shield Icon */}
         <Link to={userToken ? "/home" : "/"} className="flex items-center gap-2">
           <Shield className="h-8 w-8 text-indigo-600" />
