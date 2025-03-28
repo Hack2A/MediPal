@@ -117,5 +117,4 @@ function Testimonial({ name, review }) {
     </div>
   );
 }
-
-export default Home;
+  export default Home;
