@@ -21,15 +21,15 @@ const DockComponent = () => {
 
     const userItems = [
         { icon: <VscHome size={18} className="text-white" />, label: "Home", onClick: () => navigate("/") },
-        { icon: <VscArchive size={18} className="text-white" />, label: "Archive", onClick: () => navigate("/") },
-        { icon: <VscAccount size={18} className="text-white" />, label: "Profile", onClick: () => navigate("/") },
-        { icon: <VscSettingsGear size={18} className="text-white" />, label: "Settings", onClick: () => navigate("/") },
+        { icon: <VscArchive size={18} className="text-white" />, label: "Medical Records", onClick: () => navigate("/") },
+        { icon: <VscSettingsGear size={18} className="text-white" />, label: "Doctors List", onClick: () => navigate("/") },
+        { icon: <VscAccount size={18} className="text-white" />, label: "Appointments", onClick: () => navigate("/") },
     ];
 
     const doctorItems = [
         { icon: <VscHome size={18} className="text-white" />, label: "Home", onClick: () => navigate("/") },
-        { icon: <VscArchive size={18} className="text-white" />, label: "Archive", onClick: () => navigate("/") },
-        { icon: <VscAccount size={18} className="text-white" />, label: "Profile", onClick: () => navigate("/") },
+        { icon: <VscArchive size={18} className="text-white" />, label: "Patients", onClick: () => navigate("/") },
+        { icon: <VscAccount size={18} className="text-white" />, label: "Appointments", onClick: () => navigate("/") },
     ];
 
     return (
