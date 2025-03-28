@@ -12,13 +12,14 @@ const ChatBotBtn = () => {
 
     return (
         <div className="fixed bottom-4 right-4">
-            <button className="bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none" onClick={toggleChat}>
-                Chat
+            <button className="bg-white p-4 rounded-full shadow-md border-1 border-blue-600 hover:bg-blue-600" onClick={toggleChat}>
+                <img src="https://cdn-icons-png.freepik.com/256/4712/4712242.png?semt=ais_hybrid" alt="chatbot" className='h-7 w-7' />
             </button>
 
             {isChatBotOpen && (
                 <div className="absolute right-3 bottom-16 bg-[#FAF9F6] shadow-md rounded-lg w-100 h-125 p-4">
                     <div className='flex justify-between'>
+                        <img src="https://cdn-icons-png.freepik.com/256/4712/4712242.png?semt=ais_hybrid" alt="chatbot" className='h-7 w-7' />
                         <h2 className="text-lg font-bold">
                             MediPal
                         </h2>
@@ -27,9 +28,12 @@ const ChatBotBtn = () => {
                         </button>
                     </div>
                     <div className="mt-2">
-                        <p>
-                            Welcome to the ChatBot
-                        </p>
+                        <div className="flex justify-around absolute bottom-5 w-[90%] align-middle">
+                            <input type="text" placeholder='Ask something?' className='w-[85%] p-2 shadow-md rounded-2xl border-none' />
+                            <button>
+                                <img src="https://cdn-icons-png.flaticon.com/128/6532/6532019.png" alt="send button" className="h-6 w-6 my-auto" />
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

@@ -116,20 +116,5 @@ function Testimonial({ name, review }) {
       <h4 className="mt-4 font-bold text-indigo-600">{name}</h4>
     </div>
   );
-import React from 'react'
-
-import ChatBotBtn from '../components/ChatBotBtn'
-
-const Landing = () => {
-    return (
-        <div>
-            <div>
-                Landing
-            </div>
-            <ChatBotBtn />
-        </div>
-
-    )
 }
-
-export default Home;
+  export default Home;
