@@ -1,20 +1,30 @@
-import React from 'react'
+import React from 'react';
+import DoctorCard from '../../components/DoctorCard';
 import useFetch from "../../hooks/useFetch";
 
 const DoctorLists = () => {
-    const { data: verified, uloading, uerror } = useFetch("http://localhost:8080/v1/getverified");
-    const { data: nonverified, ploading, perror } = useFetch("http://localhost:8080/v1/getunder");
+    const { data, loading, error } = useFetch("http://localhost:8080/v1/getverified");
 
+    if (loading) return <p className="text-blue-500">Loading doctors...</p>;
+    if (error) return <p className="text-red-500">Error: {error}</p>;
+
+    const verifiedDoctors = data?.doctor || []; // Ensure we get an array
 
     return (
-        <>
-            <h2>Verified Doctor Data:</h2>
-            <pre>{JSON.stringify(verified, null, 2)}</pre>
+        <div className="p-4">
+            <h2 className="text-xl font-bold mb-4">Verified Doctors</h2>
 
-            <h2>Non-Verified Doctor Data:</h2>
-            <pre>{JSON.stringify(nonverified, null, 2)}</pre>
-        </>
-    )
-}
+            {verifiedDoctors.length > 0 ? (
+                <div className="flex flex-col gap-4">
+                    {verifiedDoctors.map((doctor) => (
+                        <DoctorCard key={doctor._id} doctor={doctor} />
+                    ))}
+                </div>
+            ) : (
+                <p>No verified doctors found.</p>
+            )}
+        </div>
+    );
+};
 
-export default DoctorLists
+export default DoctorLists;
