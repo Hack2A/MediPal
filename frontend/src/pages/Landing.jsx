@@ -72,7 +72,7 @@ function Home() {
         <section id="testimonials" className="w-full py-12 md:py-24 text-center">
           <h2 className="text-3xl font-bold text-indigo-600">What Our Users Say</h2>
           <p className="max-w-xl mx-auto text-gray-500 mt-2">
-            Hear from people who have benefited from MediConnect.
+            Hear from people who have benefited from MediPal.
           </p>
           <div className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto mt-8">
             <Testimonial
@@ -86,11 +86,6 @@ function Home() {
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t bg-white text-center py-6">
-        <p className="text-gray-500 text-sm">© 2025 MediConnect. All rights reserved.</p>
-      </footer>
     </div>
   );
 }
