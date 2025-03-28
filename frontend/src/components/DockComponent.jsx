@@ -33,7 +33,7 @@ const DockComponent = () => {
     ];
 
     return (
-        <div className="absolute bottom-0 w-full text-white">
+        <div className="fixed bottom-0 w-full text-white">
             <Dock items={role === "Doctor" ? doctorItems : userItems} panelHeight={68} baseItemSize={50} magnification={70} />
         </div>
     );
