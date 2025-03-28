@@ -29,7 +29,6 @@ const Login = () => {
             const response = await axios.post("http://localhost:8080/v1/login", data);
             let curToken = response.data.token;
             localStorage.setItem('userToken', curToken);
-            console.log(response.data);
 
             navigate('/home', { replace: true });
         } catch (error) {
