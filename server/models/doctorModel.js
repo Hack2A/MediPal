@@ -5,6 +5,11 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       default: "Doctor",
     },
+    verify: {
+      type: String,
+      default: "Under Review",
+      enum: ["Under Review", "Verified"],
+    },
     name: {
       type: String,
       require: [true, "Name is required"],
