@@ -15,7 +15,7 @@ export default function Contact() {
         {/* Left Illustration */}
         <div className="md:w-1/2 hidden md:flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-600">
           <img
-            src="/contact-illustration.svg"
+            src="/illustrations/contact.svg"
             alt="Contact Illustration"
             className="w-3/4"
           />
