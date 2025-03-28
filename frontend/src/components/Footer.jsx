@@ -8,7 +8,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Column */}
           <div>
-            <h2 className="text-xl font-bold text-indigo-600 mb-4">MediPal</h2>
+            <Link to="/" className="text-xl font-bold text-indigo-600 mb-4 block hover:text-indigo-700 transition">
+              MediPal
+            </Link>
             <p className="text-gray-600">
               Making healthcare accessible to everyone, everywhere.
             </p>
@@ -16,11 +18,11 @@ export default function Footer() {
 
           {/* Platform Column */}
           <div>
-            <h3 className="text-lg font-semibold text-indigo-600 mb-4">Platform</h3>
+            <h3 className="text-lg font-semibold text-indigo-600 mb-4"></h3>
             <ul className="space-y-2">
-              <li><p className="text-gray-500 hover:text-indigo-600 transition">Projects</p></li>
-              <li><p className="text-gray-500 hover:text-indigo-600 transition">Organizations</p></li>
-              <li><p className="text-gray-500 hover:text-indigo-600 transition">Volunteers</p></li>
+              <li><p className="text-gray-500 hover:text-indigo-600 transition"></p></li>
+              <li><p className="text-gray-500 hover:text-indigo-600 transition"></p></li>
+              <li><p className="text-gray-500 hover:text-indigo-600 transition"></p></li>
             </ul>
           </div>
 

@@ -29,7 +29,6 @@ const Login = () => {
             const response = await axios.post("http://localhost:8080/v1/login", data);
             let curToken = response.data.token;
             localStorage.setItem('userToken', curToken);
-            console.log(response.data);
 
             navigate('/home', { replace: true });
         } catch (error) {
@@ -40,7 +39,7 @@ const Login = () => {
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100">
+        <div className="flex items-center justify-center bg-gray-100">
             <div className="bg-white shadow-lg rounded-lg flex w-full max-w-5xl p-5">
                 {/* Left Section - Illustration */}
                 <div className="hidden md:flex w-1/2 justify-center items-center h-full">
@@ -78,7 +77,7 @@ const Login = () => {
                             Log in
                         </button>
                     </form>
-                    <p className="text-center mt-4">Don't have account? <Link to="/registeruser" className="text-blue-600">Sign Up</Link></p>
+                    <p className="text-center mt-4">Don't have account? <Link to="/register" className="text-blue-600">Sign Up</Link></p>
                     <div className="flex justify-center items-center space-x-3 mt-4">
                         <button className="bg-blue-600 text-white p-2 rounded-full">F</button>
                         <button className="bg-blue-400 text-white p-2 rounded-full">T</button>
