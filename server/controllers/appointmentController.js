@@ -17,7 +17,20 @@ const appointmentController = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    const existingAppointment = await appointmentModel.findOne({
+      doctorId,
+      appointmentDate,
+      timeSlot,
+    });
 
+    if (existingAppointment) {
+      return res
+        .status(400)
+        .json({
+          message:
+            "This time slot is already booked. Please choose another slot.",
+        });
+    }
     // Create appointment
     const appointment = new appointmentModel({
       doctorId,
