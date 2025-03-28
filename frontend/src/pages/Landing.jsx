@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ArrowRight, Shield, UserPlus, MessageSquareText, CalendarClock, Heart } from "lucide-react";
+import React from "react";
+import { ArrowRight, UserPlus, MessageSquareText, CalendarClock, ShieldAlert, Activity, Thermometer, Bandage } from "lucide-react";
 import { motion } from "framer-motion";
 
 function Home() {
@@ -32,57 +32,51 @@ function Home() {
         </motion.section>
 
         {/* Features Section */}
-        <motion.section
-          id="features"
-          className="w-full py-12 md:py-24 bg-white text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl font-bold text-indigo-600">Everything You Need</h2>
-          <p className="max-w-xl mx-auto text-gray-500 mt-2">
-            A seamless telemedicine experience at your fingertips.
-          </p>
-          <div className="grid gap-6 md:grid-cols-3 max-w-4xl mx-auto mt-8">
-            <Feature icon={<UserPlus className="h-8 w-8" />} title="Secure Medical Records" description="Store and access your complete medical history securely." />
-            <Feature icon={<MessageSquareText className="h-8 w-8" />} title="Connect with Doctors" description="Consult with verified healthcare professionals." />
-            <Feature icon={<CalendarClock className="h-8 w-8" />} title="Virtual Adviser" description="AI-driven chatbot at your service 24/7." />
+        <Section id="features" title="Everything You Need" description="A seamless telemedicine experience at your fingertips.">
+          <div className="flex justify-center flex-wrap gap-6">
+            <Feature icon={<UserPlus />} title="Secure Medical Records" description="Store and access your complete medical history securely." />
+            <Feature icon={<MessageSquareText />} title="Connect with Doctors" description="Consult with verified healthcare professionals." />
+            <Feature icon={<CalendarClock />} title="Virtual Adviser" description="AI-driven chatbot at your service 24/7." />
           </div>
-        </motion.section>
+        </Section>
 
-        {/* FAQ Section */}
-        <motion.section
-          id="faq"
-          className="w-full py-12 md:py-24 bg-gray-50"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-        >
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-indigo-600 text-center">Frequently Asked Questions</h2>
-            <p className="text-gray-500 text-center mt-2">
-              Find answers to common questions about our platform.
-            </p>
-            <div className="mt-8 space-y-4">
-              <FAQItem question="What is MediPal?" answer="MediPal is a telemedicine platform that connects patients with healthcare providers online." />
-              <FAQItem question="Is my medical data secure on MediPal?" answer="Yes, we use state-of-the-art encryption and follow industry standards to ensure your medical records are secure and private." />
-              <FAQItem question="Can I consult with any doctor?" answer="MediPal only connects you with verified healthcare professionals to ensure high-quality medical consultations." />
-              <FAQItem question="Do I need insurance to use MediPal?" answer="No, MediPal offers flexible payment options, including out-of-pocket payments, so you can access care without insurance." />
-            </div>
+        {/* First Aid Tips Section */}
+        <Section id="first-aid" title="Basic First Aid Tips" description="Learn essential first aid techniques to handle emergencies effectively.">
+          <div className="flex justify-center flex-wrap gap-6">
+            <Feature icon={<ShieldAlert />} title="CPR" description="Perform chest compressions for cardiac arrest." />
+            <Feature icon={<Activity />} title="Choking" description="Use the Heimlich maneuver to help a choking person." />
+            <Feature icon={<Thermometer />} title="Burns" description="Run cool water over burns and cover with a clean cloth." />
+            <Feature icon={<Bandage />} title="Cuts & Bleeding" description="Apply pressure to stop bleeding and clean the wound." />
           </div>
-        </motion.section>
+        </Section>
       </main>
     </div>
   );
 }
 
-/* Feature Component */
+/* Reusable Section Component */
+function Section({ id, title, description, children }) {
+  return (
+    <motion.section
+      id={id}
+      className="w-full py-12 md:py-24 bg-white text-center"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      viewport={{ once: true }}
+    >
+      <h2 className="text-3xl font-bold text-indigo-600">{title}</h2>
+      <p className="max-w-xl mx-auto text-gray-500 mt-2">{description}</p>
+      <div className="mt-8 flex flex-wrap justify-center gap-6">{children}</div>
+    </motion.section>
+  );
+}
+
+/* Feature Card - Unified Design */
 function Feature({ icon, title, description }) {
   return (
     <motion.div
-      className="flex flex-col items-center text-center p-4 border rounded shadow"
+      className="flex flex-col items-center text-center p-6 border rounded-lg shadow bg-gradient-to-br from-white to-gray-100 hover:shadow-lg transition transform hover:scale-105 w-64 h-64"
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.3 }}
     >
@@ -95,31 +89,4 @@ function Feature({ icon, title, description }) {
   );
 }
 
-/* FAQ Item Component */
-function FAQItem({ question, answer }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <motion.div
-      className="border rounded-lg shadow-md p-4"
-      initial={{ opacity: 0.8 }}
-      animate={{ opacity: 1 }}
-    >
-      <button
-        className="flex justify-between items-center w-full text-left font-medium text-indigo-600"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {question}
-        <span className="text-2xl">{isOpen ? "−" : "+"}</span>
-      </button>
-      <motion.div
-        initial={{ height: 0, opacity: 0 }}
-        animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-        className="overflow-hidden mt-2 text-gray-600"
-      >
-        {isOpen && <p>{answer}</p>}
-      </motion.div>
-    </motion.div>
-  );
-}
 export default Home;
