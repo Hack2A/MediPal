@@ -11,8 +11,7 @@ const Home = () => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-900">
-            <h1 className="text-2xl font-bold">This is the Home Page</h1>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-900 py-3">
             {user.role === "User" ? (
                 <User />
             ) : (

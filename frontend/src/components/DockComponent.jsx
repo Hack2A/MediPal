@@ -21,16 +21,16 @@ const DockComponent = () => {
     if (loading) return null; // Prevent rendering while loading
 
     const userItems = [
-        { icon: <VscHome size={18} className="text-white" />, label: "Home", onClick: () => navigate("/") },
-        { icon: <ClipboardList size={18} className="text-white" />, label: "Medical Records", onClick: () => navigate("/") },
-        { icon: <Stethoscope size={18} className="text-white" />, label: "Doctors List", onClick: () => navigate("/") },
-        { icon: <Calendar size={18} className="text-white" />, label: "Appointments", onClick: () => navigate("/") },
+        { icon: <VscHome size={18} className="text-white" />, label: "Home", onClick: () => navigate("/home") },
+        { icon: <ClipboardList size={18} className="text-white" />, label: "Medical Records", onClick: () => navigate("/medical-records") },
+        { icon: <Stethoscope size={18} className="text-white" />, label: "Doctors List", onClick: () => navigate("/doctorlist") },
+        { icon: <Calendar size={18} className="text-white" />, label: "Appointments", onClick: () => navigate("/appointment-user") },
     ];
 
     const doctorItems = [
-        { icon: <VscHome size={18} className="text-white" />, label: "Home", onClick: () => navigate("/") },
-        { icon: <ClipboardList size={18} className="text-white" />, label: "Patients", onClick: () => navigate("/") },
-        { icon: <Calendar size={18} className="text-white" />, label: "Appointments", onClick: () => navigate("/") },
+        { icon: <VscHome size={18} className="text-white" />, label: "Home", onClick: () => navigate("/home") },
+        { icon: <ClipboardList size={18} className="text-white" />, label: "Patients", onClick: () => navigate("/patientslist") },
+        { icon: <Calendar size={18} className="text-white" />, label: "Appointments", onClick: () => navigate("/appointment-doc") },
     ];
 
     return (

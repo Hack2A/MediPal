@@ -6,7 +6,11 @@ import Footer from "../components/Footer";
 import Landing from "../pages/Landing";
 import ChatBotBtn from "../components/ChatBotBtn";
 import DockComponent from "../components/DockComponent";
-import Doctor from "../pages/doctor/Doctor";
+import Doctors from "../pages/user/DoctorLists";
+import AppointmentDoc from "../pages/doctor/Appointments";
+import AppointmentPatient from "../pages/user/Appointments";
+import MedicalRecords from "../pages/user/MedicalHistory";
+import Patients from "../pages/doctor/Patients";
 
 // Lazy-loaded components for better performance
 const Login = lazy(() => import("../pages/forms/Login"));
@@ -116,11 +120,44 @@ const AppRoutes = () => {
                         <Home />
                         <Footer />
                     </ProtectedRoute>} />
-                    <Route path="/docdash" element={<ProtectedRoute>
+
+                    <Route path="/patientslist" element={<ProtectedRoute>
                         <Navbar />
                         <DockComponent />
                         <ChatBotBtn />
-                        <Doctor />
+                        <Patients />
+                        <Footer />
+                    </ProtectedRoute>} />
+
+                    <Route path="/appointment-doc" element={<ProtectedRoute>
+                        <Navbar />
+                        <DockComponent />
+                        <ChatBotBtn />
+                        <AppointmentDoc />
+                        <Footer />
+                    </ProtectedRoute>} />
+
+                    <Route path="/doctorlist" element={<ProtectedRoute>
+                        <Navbar />
+                        <DockComponent />
+                        <ChatBotBtn />
+                        <Doctors />
+                        <Footer />
+                    </ProtectedRoute>} />
+
+                    <Route path="/medical-records" element={<ProtectedRoute>
+                        <Navbar />
+                        <DockComponent />
+                        <ChatBotBtn />
+                        <MedicalRecords />
+                        <Footer />
+                    </ProtectedRoute>} />
+
+                    <Route path="/appointment-user" element={<ProtectedRoute>
+                        <Navbar />
+                        <DockComponent />
+                        <ChatBotBtn />
+                        <AppointmentPatient />
                         <Footer />
                     </ProtectedRoute>} />
                 </Routes>
