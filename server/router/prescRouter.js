@@ -76,9 +76,10 @@ router.post(
     }
   }
 );
-router.get("/images", async (req, res) => {
+router.post("/images", async (req, res) => {
   try {
-    const images = await imageModel.find();
+    const userId = req.body;
+    const images = await imageModel.findById(userId);
     return res.json(images);
   } catch (error) {
     console.error(error);
