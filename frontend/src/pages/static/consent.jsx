@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function DataSharingConsent() {
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-6">
       <div className="bg-white p-8 md:p-12 rounded-lg shadow-lg max-w-2xl text-center">
@@ -42,6 +45,14 @@ function DataSharingConsent() {
           For more details, please read our 
           <a href="/terms" className="text-indigo-600 underline ml-1">Terms & Conditions</a>.
         </p>
+
+        {/* Go Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="mt-8 bg-indigo-600 text-white px-6 py-3 rounded-full shadow-md hover:bg-indigo-700 transition"
+        >
+          Go Back
+        </button>
       </div>
     </div>
   );
