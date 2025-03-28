@@ -3,6 +3,7 @@ import Dock from "./Dock";
 import { VscHome, VscArchive, VscAccount, VscSettingsGear } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../contexts/UserContext";
+import { ClipboardList, Stethoscope, Calendar } from "lucide-react";
 
 const DockComponent = () => {
     const navigate = useNavigate();
@@ -21,15 +22,15 @@ const DockComponent = () => {
 
     const userItems = [
         { icon: <VscHome size={18} className="text-white" />, label: "Home", onClick: () => navigate("/") },
-        { icon: <VscArchive size={18} className="text-white" />, label: "Medical Records", onClick: () => navigate("/") },
-        { icon: <VscSettingsGear size={18} className="text-white" />, label: "Doctors List", onClick: () => navigate("/") },
-        { icon: <VscAccount size={18} className="text-white" />, label: "Appointments", onClick: () => navigate("/") },
+        { icon: <ClipboardList size={18} className="text-white" />, label: "Medical Records", onClick: () => navigate("/") },
+        { icon: <Stethoscope size={18} className="text-white" />, label: "Doctors List", onClick: () => navigate("/") },
+        { icon: <Calendar size={18} className="text-white" />, label: "Appointments", onClick: () => navigate("/") },
     ];
 
     const doctorItems = [
         { icon: <VscHome size={18} className="text-white" />, label: "Home", onClick: () => navigate("/") },
-        { icon: <VscArchive size={18} className="text-white" />, label: "Patients", onClick: () => navigate("/") },
-        { icon: <VscAccount size={18} className="text-white" />, label: "Appointments", onClick: () => navigate("/") },
+        { icon: <ClipboardList size={18} className="text-white" />, label: "Patients", onClick: () => navigate("/") },
+        { icon: <Calendar size={18} className="text-white" />, label: "Appointments", onClick: () => navigate("/") },
     ];
 
     return (
