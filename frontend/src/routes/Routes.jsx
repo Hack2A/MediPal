@@ -10,7 +10,8 @@ const Login = lazy(() => import("../pages/forms/Login"));
 const UserRegister = lazy(() => import("../pages/forms/Register"));
 const DocRegister = lazy(() => import("../pages/forms/DocRegister"));
 const Home = lazy(() => import("../pages/Home"));
-
+const AboutUs = lazy(() => import("../pages/static/aboutus"));
+const Contact =lazy(() =>import("../pages/static/contact"));
 const AppRoutes = () => {
     return (
         <Router>
@@ -36,6 +37,22 @@ const AppRoutes = () => {
                         <>
                             <DocRegister />
                         </>
+                    } />
+                    <Route path="/about" element={
+                        <>
+                            <Navbar />
+                            <AboutUs />
+                            <Footer />
+                        </>
+                        
+                    } />
+                    <Route path="/contact" element={
+                        <>
+                            <Navbar />
+                            <Contact/>
+                            <Footer />
+                        </>
+                        
                     } />
                     {/* Protected Routes */}
                     <Route path="/home" element={<ProtectedRoute>
