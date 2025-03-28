@@ -11,7 +11,11 @@ function RegisterSelection() {
       {/* Header */}
       <header className="border-b bg-white shadow-sm">
         <div className="container flex h-20 items-center px-6">
-          <div className="flex items-center gap-2 font-bold text-2xl">
+          {/* Brand Name with Clickable Logo */}
+          <div
+            className="flex items-center gap-2 font-bold text-2xl cursor-pointer"
+            onClick={() => navigate("/")}
+          >
             <Shield className="h-8 w-8 text-indigo-600" />
             <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
               MediPal
