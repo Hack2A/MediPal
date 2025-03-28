@@ -1,29 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { ArrowRight, Shield, UserPlus, MessageSquareText, CalendarClock } from "lucide-react";
-import { motion } from "framer-motion";
+import React from "react";
+import Navbar from "../components/Navbar";
+import { ArrowRight, Shield, UserPlus, MessageSquareText, CalendarClock, Heart } from "lucide-react";
 
 function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-b from-blue-50 to-indigo-50">
-      {/* Header */}
-      <header className="border-b bg-white shadow-sm">
-        <div className="container flex h-20 items-center justify-between px-4 md:px-6">
-          <div className="flex items-center gap-2 font-bold text-2xl">
-            <Shield className="h-8 w-8 text-indigo-600" />
-            <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              MediPal
-            </span>
-          </div>
-          <div className="flex items-center gap-4">
-            <a href="/login" className="border px-4 py-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 rounded transition">
-              Log In
-            </a>
-            <a href="/register" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-4 py-2 rounded shadow-md transition">
-              Sign Up
-            </a>
-          </div>
-        </div>
-      </header>
 
       {/* Main Content */}
       <main className="flex-1">
@@ -141,5 +122,4 @@ function FAQItem({ question, answer }) {
     </motion.div>
   );
 }
-
 export default Home;
