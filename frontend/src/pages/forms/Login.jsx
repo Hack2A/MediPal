@@ -31,7 +31,7 @@ const Login = () => {
             localStorage.setItem('userToken', curToken);
             console.log(response.data);
 
-            // navigate('/home', { replace: true });
+            navigate('/home', { replace: true });
         } catch (error) {
             console.error("Login error: ", error.response?.data || error.message);
             setIsError(true);
