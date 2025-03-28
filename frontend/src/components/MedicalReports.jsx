@@ -1,6 +1,6 @@
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { db } from "../firebase.js";
+import { db } from "../firebase";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
 const MedicalReports = () => {
   const [reports, setReports] = useState([]);
