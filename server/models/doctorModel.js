@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const doctorSchema = new mongoose.Schema(
   {
+    role: {
+      type: String,
+      default: "Doctor",
+    },
     name: {
       type: String,
       require: [true, "Name is required"],
@@ -63,8 +67,9 @@ const doctorSchema = new mongoose.Schema(
       type: Number,
       require: [true, "Consultency Fees is required"],
     },
-    Language: {
-      type: String,
+    language: {
+      type: [String],
+      default: [],
       require: [true, "Language is required"],
     },
   },

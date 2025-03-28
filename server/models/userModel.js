@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema(
   {
+    role: {
+      type: String,
+      default: "User",
+    },
     name: {
       type: String,
       require: [true, "Name is required"],
@@ -16,7 +20,7 @@ const userSchema = new mongoose.Schema(
       require: [true, "Password is required"],
     },
     age: {
-      type: String,
+      type: Number,
       require: [true, "Age is required"],
     },
     gender: {
