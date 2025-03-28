@@ -17,6 +17,7 @@ app.use("/v1", require("./router/doctorRegRouter"));
 app.use("/v1", require("./router/loginRouter"));
 app.use("/v1", require("./router/chatBotRouter"));
 app.use("/v1", require("./router/currentUserRouter"));
+app.use("/v1", require("./router/getDocRouter"));
 
 app.get("/", (req, res) => {
   res.send("Hello World!2");
