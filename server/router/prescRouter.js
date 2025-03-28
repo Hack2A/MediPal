@@ -78,8 +78,9 @@ router.post(
 );
 router.post("/images", async (req, res) => {
   try {
-    const userId = req.body;
-    const images = await imageModel.findById(userId);
+    const images = await imageModel
+      .find({ userId: req.body })
+      .select("-_id date reason imageUrl");
     return res.json(images);
   } catch (error) {
     console.error(error);
