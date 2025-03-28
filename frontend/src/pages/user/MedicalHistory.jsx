@@ -1,17 +1,48 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const MedicalRecords = () => {
-  const [prescriptions, setPrescriptions] = useState([
-    { id: 1, date: "2024-03-15", reason: "Fever & Cold", image: "https://via.placeholder.com/150" },
-    { id: 2, date: "2024-02-10", reason: "Headache", image: "https://via.placeholder.com/150" }
-  ]);
   const [newPrescription, setNewPrescription] = useState({ date: "", reason: "", image: "" });
   const [filter, setFilter] = useState("all");
   const [sortOrder, setSortOrder] = useState("desc");
   const [selectedPrescription, setSelectedPrescription] = useState(null);
   const [zoom, setZoom] = useState(1);
   const [uploading, setUploading] = useState(false);
+  const [userId, setUserId] = useState(null);
+  const [prescriptions, setPrescriptions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch images from backend
+  useEffect(() => {
+    const fetchPrescriptions = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/images"); // ✅ API call
+        setPrescriptions(response.data); // ✅ Store fetched data
+      } catch (error) {
+        console.error("Error fetching prescriptions:", error);
+        setError("Failed to load prescriptions.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPrescriptions();
+  }, []);
+  // Fetch user ID from localStorage
+  useEffect(() => async () => {
+    const token = localStorage.getItem("userToken"); // Ensure token is available
+    const response = await axios.get("http://localhost:8080/v1/current-user", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const storedUserId = response.data.user._id; // Ensure user ID is stored in localStorage
+
+    if (storedUserId) {
+      setUserId(storedUserId);
+    } else {
+      console.error("User ID not found in localStorage");
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,10 +53,17 @@ const MedicalRecords = () => {
     const file = e.target.files[0];
     if (!file) return;
 
+    if (!userId) {
+      alert("User ID is missing! Please log in again.");
+      return;
+    }
+
     setUploading(true);
     const formData = new FormData();
     formData.append("image", file);
-    formData.append("userId", "12345"); // Replace with actual user ID
+    formData.append("userId", userId);
+    formData.append("date", newPrescription.date);  // ✅ Added
+    formData.append("reason", newPrescription.reason);  // ✅ Added
 
     try {
       const response = await axios.post("http://localhost:8080/v1/upload", formData, {
@@ -46,10 +84,14 @@ const MedicalRecords = () => {
   };
 
   const addPrescription = () => {
-    if (newPrescription.date && newPrescription.reason && newPrescription.image) {
-      setPrescriptions([...prescriptions, { ...newPrescription, id: prescriptions.length + 1 }]);
-      setNewPrescription({ date: "", reason: "", image: "" });
+    if (!newPrescription.date || !newPrescription.reason || !newPrescription.image) {
+      alert("Please fill all fields (Date, Reason, and Image).");
+      return;
     }
+
+    const newId = prescriptions.length ? Math.max(...prescriptions.map(p => p.id)) + 1 : 1;
+    setPrescriptions([...prescriptions, { ...newPrescription, id: newId }]);
+    setNewPrescription({ date: "", reason: "", image: "" });
   };
 
   const deletePrescription = (id) => {
@@ -60,6 +102,8 @@ const MedicalRecords = () => {
     const now = new Date();
     return prescriptions.filter(p => {
       const prescriptionDate = new Date(p.date);
+      if (isNaN(prescriptionDate)) return false; // Ignore invalid dates
+
       if (filter === "week") {
         return (now - prescriptionDate) / (1000 * 60 * 60 * 24) <= 7;
       } else if (filter === "month") {
@@ -71,7 +115,9 @@ const MedicalRecords = () => {
     });
   };
 
-  const sortedPrescriptions = [...filterPrescriptions()].sort((a, b) => sortOrder === "desc" ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date));
+  const sortedPrescriptions = [...filterPrescriptions()].sort((a, b) =>
+    sortOrder === "desc" ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date)
+  );
 
   return (
     <div className="w-full max-w-4xl mx-auto p-6 bg-gradient-to-b from-blue-50 to-indigo-50 min-h-screen">
@@ -85,7 +131,7 @@ const MedicalRecords = () => {
           <input type="text" name="reason" placeholder="Reason" value={newPrescription.reason} onChange={handleInputChange} className="border p-2 rounded w-full" />
           <div>
             <input type="file" onChange={handleFileUpload} />
-            {uploading && <p>Uploading...</p>} {/* ✅ Show when uploading */}
+            {uploading && <p>Uploading...</p>}
           </div>
           <button onClick={addPrescription} className="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Add Prescription</button>
         </div>
@@ -105,7 +151,7 @@ const MedicalRecords = () => {
             <button onClick={() => setSortOrder(sortOrder === "desc" ? "asc" : "desc")} className="bg-gray-200 px-3 py-1 rounded">Sort {sortOrder === "desc" ? "Oldest" : "Newest"}</button>
           </div>
         </div>
-        <div className="overflow-x-auto whitespace-nowrap flex gap-4 p-2">
+        <div className="overflow-x-auto flex gap-4 p-2">
           {sortedPrescriptions.map(prescription => (
             <div key={prescription.id} className="border p-4 rounded-lg shadow-md bg-indigo-100 min-w-[200px] cursor-pointer">
               <p className="font-semibold">{prescription.date}</p>
@@ -119,30 +165,8 @@ const MedicalRecords = () => {
           ))}
         </div>
       </div>
-
-      {/* View Prescription Overlay */}
-      {selectedPrescription && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-[#6a7282] backdrop-blur-md z-50"
-          onWheel={(e) => setZoom(prev => Math.max(1, prev + e.deltaY * -0.001))}
-          onClick={() => setSelectedPrescription(null)}>
-
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full relative">
-            <h2 className="text-2xl font-semibold mb-4">Prescription Details</h2>
-            <p><strong>Date:</strong> {selectedPrescription.date}</p>
-            <p><strong>Reason:</strong> {selectedPrescription.reason}</p>
-            <div className="flex justify-center items-center">
-              <img src={selectedPrescription.image} alt="Prescription" className="mt-4 rounded" style={{ transform: `scale(${zoom})`, transition: "transform 0.2s" }} />
-            </div>
-            <div className="flex justify-between mt-4">
-              <button onClick={() => setSelectedPrescription(null)} className="bg-red-500 text-white px-4 py-2 rounded shadow hover:bg-red-700">Close</button>
-              <a href={selectedPrescription.image} download className="bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-700">Download</a>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
 export default MedicalRecords;
-
