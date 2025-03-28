@@ -4,6 +4,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Landing from "../pages/Landing";
+import ChatBotBtn from "../components/ChatBotBtn";
 
 // Lazy-loaded components for better performance
 const Login = lazy(() => import("../pages/forms/Login"));
@@ -24,6 +25,7 @@ const AppRoutes = () => {
                     <Route path="/" element={
                         <>
                             <Landing />
+                            <ChatBotBtn />
                             <Footer />
                         </>
                     } />
