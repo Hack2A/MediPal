@@ -2,29 +2,48 @@ import React from "react";
 import useFetch from "../../hooks/useFetch";
 
 const User = () => {
-    // Remove `await` and use destructuring
     const { data: user, loading, error } = useFetch("http://localhost:8080/v1/current-user");
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error fetching user data</p>;
+    if (loading) return <p className="text-center text-xl text-indigo-600">Loading...</p>;
+    if (error) return <p className="text-center text-xl text-red-500">Error fetching user data</p>;
+
+    const getUserData = (value) => value ? value : "N/A";
 
     return (
-        <>
-            <div className="w-[80%] relative bg-indigo-50 p-6 rounded-2xl shadow-md flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('/path-to-your-background-image.jpg')" }}>
-                <div className="absolute left-6 top-1/2 transform -translate-y-1/2 w-20 h-20 border-4 border-black rounded-full overflow-hidden">
-                    <img src="https://img.freepik.com/premium-vector/body-patient-image-icon-flat-vector-clinic-examination_98396-69431.jpg" alt="Doctor" className="w-full h-full" />
+        <div className="w-full max-w-5xl mx-auto p-8 bg-gradient-to-b from-blue-50 to-indigo-50 min-h-screen">            
+            {/* User Profile Section */}
+            <div className="w-full bg-white p-8 rounded-2xl shadow-md flex items-center justify-start border border-indigo-300">
+                <div className="w-32 h-32 border-4 border-indigo-600 rounded-full overflow-hidden">
+                    <img src="https://img.freepik.com/premium-vector/body-patient-image-icon-flat-vector-clinic-examination_98396-69431.jpg" alt="User" className="w-full h-full" />
                 </div>
-                <div className="ml-24 text-center">
-                    <h1 className="text-2xl font-bold">{user.user.name}</h1>
-                    <p className="text-gray-600">{user.user.email}</p>
-                    <p className="text-gray-600">{user.user.role}</p>
+                <div className="ml-8">
+                    <h1 className="text-3xl font-bold text-indigo-600">Hi, {getUserData(user.user.name)} 👋</h1>
+                    <p className="text-lg text-gray-700">Age: {getUserData(user.user.age)}</p>
+                    <p className="text-lg text-gray-700">Gender: {getUserData(user.user.gender)}</p>
                 </div>
             </div>
 
+            {/* Personal Details Section */}
+            <div className="mt-8 bg-white p-8 rounded-lg shadow-md text-lg border border-indigo-300">
+                <h2 className="text-2xl font-semibold mb-4 text-indigo-600">Personal Details</h2>
+                <p><strong>Name:</strong> {getUserData(user.user.name)}</p>
+                <p><strong>Email:</strong> {getUserData(user.user.email)}</p>
+                <p><strong>Phone:</strong> {getUserData(user.user.phone)}</p>
+                {/* <p><strong>Address:</strong> {getUserData(user.user.address)}</p> */}
+            </div>
 
-            <h2>User Data:</h2>
-            <pre>{JSON.stringify(user, null, 2)}</pre>
-        </>
+            {/* Medical Details Section */}
+            <div className="mt-8 bg-white p-8 rounded-lg shadow-md text-lg border border-indigo-300">
+                <h2 className="text-2xl font-semibold mb-4 text-indigo-600">Medical Details</h2>
+                <p><strong>Blood Group:</strong> {getUserData(user.user.bloodGroup)}</p>
+                <p><strong>Known Allergies:</strong> {getUserData(user.user.allergies)}</p>
+                <p><strong>Current Medications:</strong> {getUserData(user.user.medications)}</p>
+                <p><strong>Medical History:</strong> {getUserData(user.user.medicalHistory)}</p>
+            </div>
+
+            {/* User Images Section */}
+           
+        </div>
     );
 };
 
