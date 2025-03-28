@@ -25,6 +25,7 @@ const AppRoutes = () => {
                 <Routes>
                     <Route path="/" element={
                         <>
+                            <Navbar />
                             <Landing />
                             <ChatBotBtn />
                             <Footer />
@@ -32,12 +33,12 @@ const AppRoutes = () => {
                     } />
                     <Route path="/login" element={
                         <>
-                        <div className="flex flex-col min-h-screen">
-                            <Navbar />
-                            <div className="flex-grow flex items-center justify-center bg-gray-100">
-                            <Login />
+                            <div className="flex flex-col min-h-screen">
+                                <Navbar />
+                                <div className="flex-grow flex items-center justify-center bg-gray-100">
+                                    <Login />
+                                </div>
                             </div>
-                        </div>
                         </>
                     } />
                     <Route path="/register" element={
@@ -48,22 +49,22 @@ const AppRoutes = () => {
                     } />
                     <Route path="/registeruser" element={
                         <>
-                        <div className="flex flex-col min-h-screen">
-                            <Navbar />
-                            <div className="flex-grow flex items-center justify-center bg-gray-100">
-                            <UserRegister />
+                            <div className="flex flex-col min-h-screen">
+                                <Navbar />
+                                <div className="flex-grow flex items-center justify-center bg-gray-100">
+                                    <UserRegister />
+                                </div>
                             </div>
-                        </div>
                         </>
                     } />
                     <Route path="/registerdoctor" element={
                         <>
-                        <div className="flex flex-col min-h-screen">
-                            <Navbar />
-                            <div className="flex-grow flex items-center justify-center bg-gray-100">
-                            <DocRegister />
+                            <div className="flex flex-col min-h-screen">
+                                <Navbar />
+                                <div className="flex-grow flex items-center justify-center bg-gray-100">
+                                    <DocRegister />
+                                </div>
                             </div>
-                        </div>
                         </>
                     } />
                     <Route path="/about" element={
@@ -110,6 +111,7 @@ const AppRoutes = () => {
                     <Route path="/home" element={<ProtectedRoute>
                         <Navbar />
                         <DockComponent />
+                        <ChatBotBtn />
                         <Home />
                         <Footer />
                     </ProtectedRoute>} />

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import BloodGroupSelector from "../../components/BloodGroupSelector";
+import { useUser } from "../../contexts/UserContext"; // Import useUser
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
@@ -12,6 +13,7 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
+    const { setUser } = useUser();  // Get setUser from context
 
     // Checkbox states
     const [hasAllergies, setHasAllergies] = useState(false);
@@ -67,6 +69,7 @@ const Register = () => {
             const response = await axios.post("http://localhost:8080/v1/register", finalData);
             if (response.data.success) {
                 localStorage.setItem("userToken", response.data.token);
+                setUser(response.data.user); // Update context
                 navigate("/home", { replace: true });
             } else {
                 throw new Error("Username or Email already exists");
