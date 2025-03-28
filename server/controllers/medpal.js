@@ -13,7 +13,7 @@ async function chatbot(prompt) {
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
 
-    const enhancedPrompt = `You are MediPal, a medical chatbot. Please answer only medical-field-related questions and some very generic questions. Make sure the response does not exceed 3-4 lines and is easy to understand. If a question is not related to medical-field, respond with "I am a medical assistance AI and designed to only answer medical questions."\n\nUser: ${prompt}`;
+    const enhancedPrompt = `You are MediPal, a medical chatbot. Please answer only medical-field-related questions and some very generic questions. Make sure the response does not exceed 3-4 lines and is easy to understand. answer the user in any language of their choice. If a question is not related to medical-field, respond with "I am a medical assistance AI and designed to only answer medical questions."\n\nUser: ${prompt}`;
 
     const result = await model.generateContent(enhancedPrompt);
     const response = await result.response;
