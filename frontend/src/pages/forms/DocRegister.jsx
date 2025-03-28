@@ -6,63 +6,24 @@ import axios from "axios";
 import BloodGroupSelector from "../../components/BloodGroupSelector";
 
 const Register = () => {
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+    const { register, handleSubmit, setValue } = useForm();
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({});
     const [showPassword, setShowPassword] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
 
-    // Checkbox states
-    const [hasAllergies, setHasAllergies] = useState(false);
-    const [hasChronicIllness, setHasChronicIllness] = useState(false);
-    const [hasMedication, setHasMedication] = useState(false);
-    const [hasSurgeries, setHasSurgeries] = useState(false);
-    const [smokes, setSmokes] = useState(false);
-    const [drinks, setDrinks] = useState(false);
-
-    // Check if user is already logged in
     useEffect(() => {
         const token = localStorage.getItem("userToken");
         if (token) navigate("/home");
     }, [navigate]);
 
-    // Restore formData when navigating back to a previous step
-    useEffect(() => {
-        if (formData) {
-            setHasAllergies(formData.hasAllergies || false);
-            setHasChronicIllness(formData.hasChronicIllness || false);
-            setHasMedication(formData.hasMedication || false);
-            setHasSurgeries(formData.hasSurgeries || false);
-            setSmokes(formData.smoking || false);
-            setDrinks(formData.drinking || false);
-
-            // Restore checkbox-related inputs
-            setValue("allergy", formData.allergy || "");
-            setValue("chronic", formData.chronic || "");
-            setValue("currentmed", formData.currentmed || "");
-            setValue("pastsur", formData.pastsur || "");
-        }
-    }, [formData, setValue]);
-
     const handleNext = (data) => {
-        setFormData(prev => ({
-            ...prev,
-            ...data,
-            hasAllergies,
-            hasChronicIllness,
-            hasMedication,
-            hasSurgeries,
-            smoking: smokes,
-            drinking: drinks,
-        }));
+        setFormData({ ...formData, ...data });
         setStep(step + 1);
     };
 
     const handleRegister = async (data) => {
         const finalData = { ...formData, ...data };
-        console.log(finalData);
-
         try {
             const response = await axios.post("http://localhost:8080/v1/registerdoc", finalData);
             if (response.data.success) {
@@ -72,26 +33,31 @@ const Register = () => {
                 throw new Error("Username or Email already exists");
             }
         } catch (error) {
-            setErrorMessage(error.message || "Something went wrong!");
+            console.error(error.message || "Something went wrong!");
         }
     };
 
     return (
         <div className="flex flex-col min-h-screen items-center justify-center bg-gray-100">
             <div className="bg-white shadow-lg rounded-lg flex w-full max-w-5xl p-5 min-h-[80vh] my-3 relative">
-                {/* Left Section - Illustration */}
                 <div className="flex w-1/2 justify-center items-center h-full flex-col">
-                    {step === 1 ? "" : <button onClick={() => setStep(step - 1)} className="bg-indigo-600 font-bold text-white py-1 px-5 rounded-full absolute left-3 top-3 hover:cursor-pointer">Back</button>}
+                    {step > 1 && (
+                        <button onClick={() => setStep(step - 1)} className="bg-indigo-600 font-bold text-white py-1 px-5 rounded-full absolute left-3 top-3 hover:cursor-pointer">Back</button>
+                    )}
                     <h2 className="text-2xl font-bold text-center mb-4">Welcome to HealthCare</h2>
                     <img src="/illustrations/patientReg.svg" alt="Medicine Illustration" className="my-auto" />
                 </div>
-
-                {/* Right Section - Form */}
                 <div className="w-full md:w-1/2 p-6">
-                    <h2 className="text-2xl font-bold text-center mb-4">{step === 1 ? "Basic Details" : (step === 2 ? "Medical Details" : "Terms & Conditions")}</h2>
+                    <h2 className="text-2xl font-bold text-center mb-4">
+                        {step === 1 ? "Basic Details" :
+                            (step === 2 ? "Credentials" :
+                                (step === 3 ? "Availablity Details" :
+                                    "Verification"))
+                        }
+                    </h2>
                     <hr className="mb-4" />
 
-                    {step === 1 ? (
+                    {step === 1 && (
                         <form onSubmit={handleSubmit(handleNext)} className="space-y-4">
                             <div>
                                 <input
@@ -136,15 +102,6 @@ const Register = () => {
                                     className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                             </div>
-                            <div>
-                                <input
-                                    type="tel"
-                                    {...register("ephone", { pattern: /^[0-9]{10}$/ })}
-                                    required
-                                    placeholder="Enter your Emergency Contact"
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
-                            </div>
                             <div className="relative">
                                 <input
                                     type={showPassword ? "text" : "password"}
@@ -162,165 +119,159 @@ const Register = () => {
                             </div>
                             <button type="submit" className="btn-primary">Next</button>
                         </form>
-                    ) : (step === 2 ? (
+                    )}
+
+                    {step === 2 && (
                         <form onSubmit={handleSubmit(handleNext)} className="space-y-4">
-                            {/* Blood Group */}
-                            <BloodGroupSelector register={register} />
-
-                            {/* Allergies */}
-                            <div className="toggle-section">
-                                <label className="toggle-label">
-                                    <input type="checkbox" onChange={() => setHasAllergies(!hasAllergies)} className="toggle-checkbox" />
-                                    Any Allergies?
-                                </label>
-                                {hasAllergies && <input type="text" {...register("allergy")} placeholder="List allergies" className="input-field" />}
+                            {/* Medical License Number */}
+                            <div>
+                                <input
+                                    type="text"
+                                    id="mlno"
+                                    {...register("mlno", { required: "Medical License Number is required" })}
+                                    placeholder="Medical License Number"
+                                    className="input-field"
+                                />
                             </div>
 
-                            {/* Chronic Illness */}
-                            <div className="toggle-section">
-                                <label className="toggle-label">
-                                    <input type="checkbox" onChange={() => setHasChronicIllness(!hasChronicIllness)} className="toggle-checkbox" />
-                                    Any Chronic Illness?
-                                </label>
-                                {hasChronicIllness && <input type="text" {...register("chronic")} placeholder="List chronic illnesses" className="input-field" />}
+                            {/* License Issuing Body */}
+                            <div>
+                                <input
+                                    type="text"
+                                    {...register("libody", { required: "Issuing Body is required" })}
+                                    placeholder="License Issuing Body"
+                                    className="input-field"
+                                />
                             </div>
 
-                            {/* Current Medication */}
-                            <div className="toggle-section">
-                                <label className="toggle-label">
-                                    <input type="checkbox" onChange={() => setHasMedication(!hasMedication)} className="toggle-checkbox" />
-                                    Any Ongoing Medications?
-                                </label>
-                                {hasMedication && <input type="text" {...register("currentmed")} placeholder="List current medications" className="input-field" />}
+                            {/* Specialization */}
+                            <div>
+                                <input
+                                    type="text"
+                                    {...register("specialization", { required: "Specialization is required" })}
+                                    placeholder="Specialization"
+                                    className="input-field"
+                                />
                             </div>
 
-                            {/* Past Surgeries */}
-                            <div className="toggle-section">
-                                <label className="toggle-label">
-                                    <input type="checkbox" onChange={() => setHasSurgeries(!hasSurgeries)} className="toggle-checkbox" />
-                                    Any Past Surgeries?
-                                </label>
-                                {hasSurgeries && <input type="text" {...register("pastsur")} placeholder="List past surgeries" className="input-field" />}
+                            {/* Year Of Experience */}
+                            <div>
+                                <input
+                                    type="number"
+                                    {...register("yoe", { required: "Years of Experience is required", min: 0 })}
+                                    placeholder="Years of Experience"
+                                    className="input-field"
+                                />
                             </div>
 
-                            {/* Smoking */}
-                            <div className="toggle-section">
-                                <label className="toggle-label">
-                                    <input type="checkbox" onChange={() => setSmokes(!smokes)} className="toggle-checkbox" />
-                                    Do you Smoke?
-                                </label>
-                                {smokes && (
-                                    <div className="flex gap-4 mt-2">
-                                        <label className="radio-label">
-                                            <input type="radio" {...register("ifsmoking")} value="Occasionally" className="radio-input" />
-                                            Occasionally
-                                        </label>
-                                        <label className="radio-label">
-                                            <input type="radio" {...register("ifsmoking")} value="Regularly" className="radio-input" />
-                                            Regularly
-                                        </label>
-                                        <label className="radio-label">
-                                            <input type="radio" {...register("ifsmoking")} value="Heavily" className="radio-input" />
-                                            Heavily
-                                        </label>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Drinking */}
-                            <div className="toggle-section">
-                                <label className="toggle-label">
-                                    <input type="checkbox" onChange={() => setDrinks(!drinks)} className="toggle-checkbox" />
-                                    Do you Drink?
-                                </label>
-                                {drinks && (
-                                    <div className="flex gap-4 mt-2">
-                                        <label className="radio-label">
-                                            <input type="radio" {...register("ifdrinking")} value="Occasionally" className="radio-input" />
-                                            Occasionally
-                                        </label>
-                                        <label className="radio-label">
-                                            <input type="radio" {...register("ifdrinking")} value="Regularly" className="radio-input" />
-                                            Regularly
-                                        </label>
-                                        <label className="radio-label">
-                                            <input type="radio" {...register("ifdrinking")} value="Heavily" className="radio-input" />
-                                            Heavily
-                                        </label>
-                                    </div>
-                                )}
+                            {/* Medical Degree */}
+                            <div>
+                                <input
+                                    type="text"
+                                    {...register("degree", { required: "Medical Degree is required" })}
+                                    placeholder="Medical Degree"
+                                    className="input-field"
+                                />
                             </div>
 
                             <button type="submit" className="btn-primary">Next</button>
                         </form>
-                    ) : (
-                        <form onSubmit={handleSubmit(handleRegister)} className="space-y-4">
-                            {/* Scrollable Terms & Conditions Section */}
-                            <div className="border p-4 h-80 overflow-y-scroll bg-gray-50 rounded-md text-sm">
-                                <h3 className="text-lg font-semibold">Terms & Conditions</h3>
-                                <p>Welcome to MediPal! By using our platform, you agree to the following terms and conditions. Please read them carefully.</p>
+                    )}
 
-                                <h4 className="font-semibold mt-2">1. Acceptance of Terms</h4>
-                                <p>By accessing or using MediPal, you agree to be bound by these Terms and Conditions, along with our Privacy Policy.</p>
-
-                                <h4 className="font-semibold mt-2">2. Services Provided</h4>
-                                <p>MediPal is a telemedicine platform connecting patients with verified healthcare professionals. <strong>No emergency services.</strong></p>
-
-                                <h4 className="font-semibold mt-2">3. User Responsibilities</h4>
-                                <ul className="list-disc ml-5">
-                                    <li>Provide accurate and complete information.</li>
-                                    <li>Use MediPal for lawful and ethical purposes.</li>
-                                    <li>Must be 18+ years old or have parental consent.</li>
-                                </ul>
-
-                                <h4 className="font-semibold mt-2">4. Privacy & Data Protection</h4>
-                                <p>We prioritize your privacy. Data is securely stored and encrypted.</p>
-
-                                <h4 className="font-semibold mt-2">5. Limitation of Liability</h4>
-                                <p>MediPal is not liable for incorrect medical advice, loss due to reliance on teleconsultations, or service downtime.</p>
-
-                                <h4 className="font-semibold mt-2">6. Changes to Terms</h4>
-                                <p>We may update these Terms & Conditions at any time.</p>
-                            </div>
-
-                            {/* Checkboxes for Consent */}
-                            <div className="flex items-center space-x-2">
+                    {step === 3 && (
+                        <form onSubmit={handleSubmit(handleNext)} className="space-y-4">
+                            {/* Clinic Name */}
+                            <div>
                                 <input
-                                    type="checkbox"
-                                    id="acceptTnC"
+                                    type="text"
+                                    {...register("clinicname")}
                                     required
+                                    placeholder="Clinic Name"
+                                    className="input-field"
                                 />
-                                <label htmlFor="acceptTnC" className="text-sm">
-                                    I accept the <strong>Terms & Conditions</strong>.
-                                </label>
                             </div>
 
-                            <div className="flex items-center space-x-2">
+                            {/* Clinic Location */}
+                            <div>
                                 <input
-                                    type="checkbox"
-                                    id="consentData"
+                                    type="text"
+                                    {...register("clinicloc")}
                                     required
+                                    placeholder="Clinic Location"
+                                    className="input-field"
                                 />
-                                <label htmlFor="consentData" className="text-sm">
-                                    I give consent to share my medical data with doctors.
-                                </label>
                             </div>
 
-                            {/* Register Button (Disabled until checkboxes are checked) */}
-                            <button
-                                type="submit"
-                                className="btn-primary w-full"
-                            >
-                                Register
-                            </button>
+                            {/* Availability (Doctor Timing) */}
+                            <div>
+                                <label className="block text-gray-700">Availability (Timings)</label>
+                                <input
+                                    type="text"
+                                    {...register("availability")}
+                                    required
+                                    placeholder="Eg: 10:00 AM - 12:00 PM, 2:00 PM - 4:00 PM"
+                                    className="input-field"
+                                />
+                            </div>
+
+                            {/* Consultation Fee */}
+                            <div>
+                                <input
+                                    type="number"
+                                    {...register("fee")}
+                                    required
+                                    placeholder="Consultation Fee (in INR)"
+                                    className="input-field"
+                                />
+                            </div>
+
+                            {/* Language Selection */}
+                            <div>
+                                <input
+                                    type="text"
+                                    {...register("language")}
+                                    required
+                                    placeholder="Enter known languages (Eg: English, Hindi)"
+                                    className="input-field"
+                                />
+                            </div>
+
+                            <button type="submit" className="btn-primary">Next</button>
                         </form>
-
-                    ))}
+                    )}
+                    {step === 4 && (
+                        <form onSubmit={handleSubmit(handleRegister)} className="space-y-4">
+                            <div>
+                                <input
+                                    type="text"
+                                    {...register("aadhar", { required: "Aadhar number is required", pattern: /^[0-9]{12}$/ })}
+                                    placeholder="Enter your Aadhar Number"
+                                    className="input-field"
+                                />
+                            </div>
+                            <div className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    {...register("tnc", { required: "You must accept the terms and conditions" })}
+                                    className="mr-2"
+                                />
+                                <label className="text-gray-700">I accept the <Link to="/terms" className="text-blue-600">Terms and Conditions</Link></label>
+                            </div>
+                            <div className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    {...register("consent", { required: "You must give consent" })}
+                                    className="mr-2"
+                                />
+                                <label className="text-gray-700">I give my consent for data usage</label>
+                            </div>
+                            <button type="submit" className="btn-primary">Register</button>
+                        </form>
+                    )}
                     <p className="text-center mt-4">Already registered? <Link to="/login" className="text-blue-600">Sign in</Link></p>
                 </div>
             </div>
         </div>
-
     );
 };
 

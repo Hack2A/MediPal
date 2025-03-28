@@ -14,9 +14,9 @@ export default function AboutUs() {
     <section className="bg-gray-100 py-16 flex flex-col items-center justify-center">
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center">
         {/* Image on the Left */}
-        <img 
-          src="/about-us-image.jpg" 
-          alt="About Us" 
+        <img
+          src="/illustrations/aboutus.svg"
+          alt="About Us"
           className="w-full md:w-1/2 rounded-lg shadow-md"
         />
 
@@ -28,9 +28,9 @@ export default function AboutUs() {
             <Link to="/" className="font-semibold text-indigo-600 hover:underline">
               MediPal
             </Link>
-            , your trusted telemedicine platform connecting patients with verified doctors. 
-            Our mission is to provide seamless, AI-powered healthcare solutions, ensuring 
-            accessibility, security, and efficiency. Whether you need a quick consultation 
+            , your trusted telemedicine platform connecting patients with verified doctors.
+            Our mission is to provide seamless, AI-powered healthcare solutions, ensuring
+            accessibility, security, and efficiency. Whether you need a quick consultation
             or long-term medical guidance, we're here for you—anytime, anywhere.
           </p>
         </div>
@@ -41,10 +41,10 @@ export default function AboutUs() {
         <h3 className="text-2xl font-semibold text-gray-900">Meet the Team</h3>
         <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-6">
           {teamMembers.map((member, index) => (
-            <a 
+            <a
               key={index}
-              href={member.linkedIn} 
-              target="_blank" 
+              href={member.linkedIn}
+              target="_blank"
               rel="noopener noreferrer"
               className="bg-white p-4 rounded-lg shadow-sm hover:text-indigo-600 transition duration-300"
             >
