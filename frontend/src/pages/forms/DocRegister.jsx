@@ -3,9 +3,10 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
-import BloodGroupSelector from "../../components/BloodGroupSelector";
+import { useUser } from "../../contexts/UserContext";
 
 const Register = () => {
+    const { setUser } = useUser();  // Import from context
     const { register, handleSubmit, setValue } = useForm();
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({});
@@ -28,6 +29,7 @@ const Register = () => {
             const response = await axios.post("http://localhost:8080/v1/registerdoc", finalData);
             if (response.data.success) {
                 localStorage.setItem("userToken", response.data.token);
+                setUser(response.data.user);  // Update user context after login
                 navigate("/home", { replace: true });
             } else {
                 throw new Error("Username or Email already exists");
