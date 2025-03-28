@@ -14,6 +14,9 @@ const Home = lazy(() => import("../pages/Home"));
 const Register = lazy(() => import("../pages/Register"));
 const AboutUs = lazy(() => import("../pages/static/aboutus"));
 const Contact = lazy(() => import("../pages/static/contact"));
+const Terms = lazy(() => import("../pages/static/terms"));
+const Consent = lazy(() => import("../pages/static/consent"));
+const Cookies = lazy(() => import("../pages/static/cookies"));
 const AppRoutes = () => {
     return (
         <Router>
@@ -33,7 +36,9 @@ const AppRoutes = () => {
                     } />
                     <Route path="/register" element={
                         <>
+                         
                             <Register />
+                           
                         </>
                     } />
                     <Route path="/registeruser" element={
@@ -58,6 +63,30 @@ const AppRoutes = () => {
                         <>
                             <Navbar />
                             <Contact />
+                            <Footer />
+                        </>
+
+                    } />
+                    <Route path="/terms" element={
+                        <>
+                            <Navbar />
+                            <Terms />
+                            <Footer />
+                        </>
+
+                    } />
+                    <Route path="/consent" element={
+                        <>
+                            <Navbar />
+                            <Consent />
+                            <Footer />
+                        </>
+
+                    } />
+                    <Route path="/cookies" element={
+                        <>
+                            <Navbar />
+                            <Cookies />
                             <Footer />
                         </>
 
