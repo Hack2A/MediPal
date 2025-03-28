@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 connectDB();
 app.use("/v1", require("./router/authRouter"));
 app.use("/v1", require("./router/doctorRegRouter"));
+app.use("/v1", require("./router/loginRouter"));
 
 app.get("/", (req, res) => {
   res.send("Hello World!2");
