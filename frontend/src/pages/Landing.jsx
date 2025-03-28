@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, UserPlus, MessageSquareText, CalendarClock } from "lucide-react";
+import { ArrowRight, UserPlus, MessageSquareText, CalendarClock, ShieldAlert, Activity, Thermometer, Bandage } from "lucide-react";
 import { motion } from "framer-motion";
 
 function Home() {
@@ -33,17 +33,21 @@ function Home() {
 
         {/* Features Section */}
         <Section id="features" title="Everything You Need" description="A seamless telemedicine experience at your fingertips.">
-          <Feature icon={<UserPlus />} title="Secure Medical Records" description="Store and access your complete medical history securely." />
-          <Feature icon={<MessageSquareText />} title="Connect with Doctors" description="Consult with verified healthcare professionals." />
-          <Feature icon={<CalendarClock />} title="Virtual Adviser" description="AI-driven chatbot at your service 24/7." />
+          <div className="flex justify-center flex-wrap gap-6">
+            <Feature icon={<UserPlus />} title="Secure Medical Records" description="Store and access your complete medical history securely." />
+            <Feature icon={<MessageSquareText />} title="Connect with Doctors" description="Consult with verified healthcare professionals." />
+            <Feature icon={<CalendarClock />} title="Virtual Adviser" description="AI-driven chatbot at your service 24/7." />
+          </div>
         </Section>
 
-        {/* First Aid Tips Section (Matching Theme) */}
+        {/* First Aid Tips Section */}
         <Section id="first-aid" title="Basic First Aid Tips" description="Learn essential first aid techniques to handle emergencies effectively.">
-          <FirstAidCard image="/images/cpr.jpg" title="CPR" description="Perform chest compressions for cardiac arrest." />
-          <FirstAidCard image="/images/choking.jpg" title="Choking" description="Use the Heimlich maneuver to help a choking person." />
-          <FirstAidCard image="/images/burns.jpg" title="Burns" description="Run cool water over burns and cover with a clean cloth." />
-          <FirstAidCard image="/images/cuts.jpg" title="Cuts & Bleeding" description="Apply pressure to stop bleeding and clean the wound." />
+          <div className="flex justify-center flex-wrap gap-6">
+            <Feature icon={<ShieldAlert />} title="CPR" description="Perform chest compressions for cardiac arrest." />
+            <Feature icon={<Activity />} title="Choking" description="Use the Heimlich maneuver to help a choking person." />
+            <Feature icon={<Thermometer />} title="Burns" description="Run cool water over burns and cover with a clean cloth." />
+            <Feature icon={<Bandage />} title="Cuts & Bleeding" description="Apply pressure to stop bleeding and clean the wound." />
+          </div>
         </Section>
       </main>
     </div>
@@ -63,18 +67,16 @@ function Section({ id, title, description, children }) {
     >
       <h2 className="text-3xl font-bold text-indigo-600">{title}</h2>
       <p className="max-w-xl mx-auto text-gray-500 mt-2">{description}</p>
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-        {children}
-      </div>
+      <div className="mt-8 flex flex-wrap justify-center gap-6">{children}</div>
     </motion.section>
   );
 }
 
-/* Feature Card */
+/* Feature Card - Unified Design */
 function Feature({ icon, title, description }) {
   return (
     <motion.div
-      className="flex flex-col items-center text-center p-6 border rounded-lg shadow bg-gradient-to-br from-white to-gray-100 hover:shadow-lg transition transform hover:scale-105 w-64 h-64 mx-auto"
+      className="flex flex-col items-center text-center p-6 border rounded-lg shadow bg-gradient-to-br from-white to-gray-100 hover:shadow-lg transition transform hover:scale-105 w-64 h-64"
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.3 }}
     >
@@ -83,23 +85,6 @@ function Feature({ icon, title, description }) {
       </div>
       <h3 className="text-xl font-bold mt-4">{title}</h3>
       <p className="text-gray-500 mt-2">{description}</p>
-    </motion.div>
-  );
-}
-
-/* First Aid Card */
-function FirstAidCard({ image, title, description }) {
-  return (
-    <motion.div
-      className="relative flex flex-col justify-end p-6 h-64 w-64 bg-cover bg-center text-white rounded-lg shadow-lg"
-      style={{ backgroundImage: `url(${image})` }}
-      whileHover={{ scale: 1.05 }}
-      transition={{ duration: 0.3 }}
-    >
-      <div className="bg-black bg-opacity-50 p-4 rounded-lg">
-        <h3 className="text-xl font-bold">{title}</h3>
-        <p className="text-sm">{description}</p>
-      </div>
     </motion.div>
   );
 }
