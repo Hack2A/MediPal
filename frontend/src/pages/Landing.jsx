@@ -1,8 +1,16 @@
 import React from 'react'
 
+import ChatBotBtn from '../components/ChatBotBtn'
+
 const Landing = () => {
     return (
-        <div>Landing</div>
+        <div>
+            <div>
+                Landing
+            </div>
+            <ChatBotBtn />
+        </div>
+
     )
 }
 
