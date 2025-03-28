@@ -13,6 +13,7 @@ const Home = lazy(() => import("../pages/Home"));
 const Register = lazy(() => import("../pages/Register"));
 const AboutUs = lazy(() => import("../pages/static/aboutus"));
 const Contact = lazy(() => import("../pages/static/contact"));
+
 const AppRoutes = () => {
     return (
         <Router>
@@ -31,7 +32,9 @@ const AppRoutes = () => {
                     } />
                     <Route path="/register" element={
                         <>
+                         
                             <Register />
+                           
                         </>
                     } />
                     <Route path="/registeruser" element={

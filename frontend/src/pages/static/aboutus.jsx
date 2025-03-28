@@ -15,7 +15,7 @@ export default function AboutUs() {
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center">
         {/* Image on the Left */}
         <img 
-          src="/about-us-image.jpg" 
+          src="/illustrations/aboutus.svg" 
           alt="About Us" 
           className="w-full md:w-1/2 rounded-lg shadow-md"
         />

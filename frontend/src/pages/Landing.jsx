@@ -28,7 +28,7 @@ function Home() {
             <a href="/login" className="border px-4 py-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 rounded">
               Log In
             </a>
-            <a href="/signup" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-4 py-2 rounded shadow-md">
+            <a href="/register" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-4 py-2 rounded shadow-md">
               Sign Up
             </a>
           </div>
@@ -46,10 +46,10 @@ function Home() {
             Access healthcare from anywhere. Connect with verified doctors, store your medical history, and get the care you need.
           </p>
           <div className="flex justify-center gap-4 mt-6">
-            <a href="/signup" className="bg-indigo-600 text-white px-6 py-3 rounded-full flex items-center gap-2">
-              Get Started <ArrowRight className="h-4 w-4" />
+            <a href="/registeruser" className="bg-indigo-600 text-white px-6 py-3 rounded-full flex items-center gap-2">
+              Register as a Patient <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="/doctor-signup" className="border border-indigo-600 text-indigo-600 px-6 py-3 rounded-full">
+            <a href="/registerdoctor" className="border border-indigo-600 text-indigo-600 px-6 py-3 rounded-full">
               Register as a Doctor
             </a>
           </div>
@@ -88,9 +88,9 @@ function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t bg-white text-center py-6">
+      {/* <footer className="border-t bg-white text-center py-6">
         <p className="text-gray-500 text-sm">© 2025 MediConnect. All rights reserved.</p>
-      </footer>
+      </footer> */}
     </div>
   );
 }
