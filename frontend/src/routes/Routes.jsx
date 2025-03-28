@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Landing from "../pages/Landing";
 import ChatBotBtn from "../components/ChatBotBtn";
+import DockComponent from "../components/DockComponent";
 
 // Lazy-loaded components for better performance
 const Login = lazy(() => import("../pages/forms/Login"));
@@ -31,23 +32,25 @@ const AppRoutes = () => {
                     } />
                     <Route path="/login" element={
                         <>
+                            <Navbar />
                             <Login />
                         </>
                     } />
                     <Route path="/register" element={
                         <>
-                         
                             <Register />
-                           
+
                         </>
                     } />
                     <Route path="/registeruser" element={
                         <>
+                            <Navbar />
                             <UserRegister />
                         </>
                     } />
                     <Route path="/registerdoctor" element={
                         <>
+                            <Navbar />
                             <DocRegister />
                         </>
                     } />
@@ -94,6 +97,7 @@ const AppRoutes = () => {
                     {/* Protected Routes */}
                     <Route path="/home" element={<ProtectedRoute>
                         <Navbar />
+                        <DockComponent />
                         <Home />
                         <Footer />
                     </ProtectedRoute>} />
