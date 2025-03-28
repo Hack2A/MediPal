@@ -10,19 +10,18 @@ export const UserProvider = ({ children }) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const token = localStorage.getItem("userToken"); // Get token from localStorage
+                const token = localStorage.getItem("userToken");
                 if (!token) {
+                    setUser(null);
                     setLoading(false);
                     return;
                 }
 
                 const response = await axios.get("http://localhost:8080/v1/current-user", {
-                    headers: { Authorization: `Bearer ${token}` }, // Send token in headers
+                    headers: { Authorization: `Bearer ${token}` },
                 });
 
-                console.log(response.data);
-
-                setUser(response.data.user); // Example response: { role: "user" } or { role: "doctor" }
+                setUser(response.data.user);
             } catch (error) {
                 console.error("Error fetching user:", error);
                 setUser(null);
@@ -35,7 +34,7 @@ export const UserProvider = ({ children }) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{ user, loading }}>
+        <UserContext.Provider value={{ user, loading, setUser }}>
             {children}
         </UserContext.Provider>
     );

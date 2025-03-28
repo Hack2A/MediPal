@@ -1,15 +1,17 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Eye, EyeOff } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from "framer-motion";
+import { useUser } from "../../contexts/UserContext"; // Import useUser
+import { EyeOff } from 'lucide-react';
 
 const Login = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const [isError, setIsError] = useState(false);
     const [error, setError] = useState("");
     const navigate = useNavigate();
+    const { setUser } = useUser();  // Get setUser from context
 
     useEffect(() => {
         const tkn = localStorage.getItem('userToken');
@@ -18,17 +20,13 @@ const Login = () => {
         }
     }, [navigate]);
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
-
     const handleLogin = async (data) => {
         try {
             const response = await axios.post("http://localhost:8080/v1/login", data);
             let curToken = response.data.token;
+
             localStorage.setItem('userToken', curToken);
+            setUser(response.data.user);  // Update context
 
             navigate('/home', { replace: true });
         } catch (error) {
@@ -37,6 +35,7 @@ const Login = () => {
             setError("Invalid Credentials!");
         }
     };
+
 
     return (
         <div className="flex items-center justify-center bg-gray-100">
