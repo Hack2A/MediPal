@@ -48,7 +48,7 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="flex flex-col sm:flex-row justify-between items-center mt-12 pt-8 border-t">
-          <p className="text-sm text-gray-500 sm:mb-0">
+          <p className="text-sm m-auto text-gray-500 sm:mb-1">
             © {new Date().getFullYear()} MediPal. All rights reserved.
           </p>
         </div>
