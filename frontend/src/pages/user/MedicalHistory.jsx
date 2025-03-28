@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const MedicalRecords = () => {
@@ -10,17 +11,37 @@ const MedicalRecords = () => {
   const [sortOrder, setSortOrder] = useState("desc");
   const [selectedPrescription, setSelectedPrescription] = useState(null);
   const [zoom, setZoom] = useState(1);
+  const [uploading, setUploading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewPrescription({ ...newPrescription, [name]: value });
   };
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setNewPrescription({ ...newPrescription, image: imageUrl });
+    if (!file) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("userId", "12345"); // Replace with actual user ID
+
+    try {
+      const response = await axios.post("http://localhost:8080/v1/upload", formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("userToken")}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setNewPrescription({ ...newPrescription, image: response.data.imageUrl });
+      alert("File uploaded successfully!");
+    } catch (error) {
+      console.error("Upload error:", error.response?.data || error.message);
+      alert("File upload failed: " + (error.response?.data?.error || error.message));
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -62,7 +83,10 @@ const MedicalRecords = () => {
         <div className="grid gap-4">
           <input type="date" name="date" value={newPrescription.date} onChange={handleInputChange} className="border p-2 rounded w-full" />
           <input type="text" name="reason" placeholder="Reason" value={newPrescription.reason} onChange={handleInputChange} className="border p-2 rounded w-full" />
-          <input type="file" onChange={handleFileUpload} className="border p-2 rounded w-full" />
+          <div>
+            <input type="file" onChange={handleFileUpload} />
+            {uploading && <p>Uploading...</p>} {/* ✅ Show when uploading */}
+          </div>
           <button onClick={addPrescription} className="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Add Prescription</button>
         </div>
       </div>
@@ -98,7 +122,7 @@ const MedicalRecords = () => {
 
       {/* View Prescription Overlay */}
       {selectedPrescription && (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-[#6a728265] backdrop-blur-md z-50"
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-[#6a7282] backdrop-blur-md z-50"
           onWheel={(e) => setZoom(prev => Math.max(1, prev + e.deltaY * -0.001))}
           onClick={() => setSelectedPrescription(null)}>
 
