@@ -1,7 +1,7 @@
-const doctorModel = require("../models/doctorModel");
 const userModel = require("../models/userModel");
 const appointmentModel = require("../models/appointmentModel");
 const sendEmail = require("../utils/emailService");
+const doctorModel = require("../models/doctorModel");
 
 // Book an appointment & Notify Doctor
 const appointmentController = async (req, res) => {
@@ -12,7 +12,7 @@ const appointmentController = async (req, res) => {
     if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
-
+    const docName = doctor.name;
     const user = await userModel.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -23,6 +23,8 @@ const appointmentController = async (req, res) => {
       userId,
       userName: user.name,
       userEmail: user.email,
+      docName: doctor.name,
+      docEmail: doctor.email,
       appointmentDate,
       timeSlot,
     });
@@ -50,6 +52,7 @@ const appointmentController = async (req, res) => {
     return res.json({
       message: "Appointment booked successfully, doctor notified via email",
       appointment,
+      docName,
     });
   } catch (error) {
     return res
