@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Landing from "../pages/Landing";
 import ChatBotBtn from "../components/ChatBotBtn";
 import DockComponent from "../components/DockComponent";
+import Doctor from "../pages/doctor/Doctor";
 
 // Lazy-loaded components for better performance
 const Login = lazy(() => import("../pages/forms/Login"));
@@ -113,6 +114,13 @@ const AppRoutes = () => {
                         <DockComponent />
                         <ChatBotBtn />
                         <Home />
+                        <Footer />
+                    </ProtectedRoute>} />
+                    <Route path="/docdash" element={<ProtectedRoute>
+                        <Navbar />
+                        <DockComponent />
+                        <ChatBotBtn />
+                        <Doctor />
                         <Footer />
                     </ProtectedRoute>} />
                 </Routes>
