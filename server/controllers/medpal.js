@@ -1,6 +1,6 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const API_KEY = "AIzaSyAqY3oKoBbh6C5jV6UnBzaOnar-riqd_R8";
+const API_KEY = process.env.GOOGLE_API_KEY;
 
 if (!API_KEY) {
   console.error("Error: GOOGLE_API_KEY environment variable is not set.");
