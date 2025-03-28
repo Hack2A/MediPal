@@ -11,6 +11,7 @@ import AppointmentDoc from "../pages/doctor/Appointments";
 import AppointmentPatient from "../pages/user/Appointments";
 import MedicalRecords from "../pages/user/MedicalHistory";
 import Patients from "../pages/doctor/Patients";
+import Admin from "../pages/Admin";
 
 // Lazy-loaded components for better performance
 const Login = lazy(() => import("../pages/forms/Login"));
@@ -158,6 +159,12 @@ const AppRoutes = () => {
                         <DockComponent />
                         <ChatBotBtn />
                         <AppointmentPatient />
+                        <Footer />
+                    </ProtectedRoute>} />
+
+                    <Route path="/admin-page" element={<ProtectedRoute>
+                        <Navbar />
+                        <Admin />
                         <Footer />
                     </ProtectedRoute>} />
                 </Routes>
