@@ -40,7 +40,7 @@ const ChatBotBtn = () => {
 
     return (
         <div className="fixed bottom-4 right-4">
-            <button className="bg-white p-4 rounded-full shadow-md border-1 border-blue-600 hover:bg-blue-600" onClick={toggleChat}>
+            <button className="bg-white p-4 rounded-full shadow-md border-1 border-indigo-600 hover:bg-indigo-600" onClick={toggleChat}>
                 <img src="https://cdn-icons-png.freepik.com/256/4712/4712242.png?semt=ais_hybrid" alt="chatbot" className='h-7 w-7' />
             </button>
 

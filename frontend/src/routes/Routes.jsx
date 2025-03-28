@@ -25,6 +25,7 @@ const AppRoutes = () => {
                 <Routes>
                     <Route path="/" element={
                         <>
+                            <Navbar />
                             <Landing />
                             <ChatBotBtn />
                             <Footer />
