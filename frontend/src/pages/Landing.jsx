@@ -1,6 +1,6 @@
-import React from "react";
-import Navbar from "../components/Navbar";
+import React, { useState } from "react";
 import { ArrowRight, Shield, UserPlus, MessageSquareText, CalendarClock, Heart } from "lucide-react";
+import { motion } from "framer-motion";
 
 function Home() {
   return (
@@ -9,7 +9,7 @@ function Home() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section */}
-        <motion.section 
+        <motion.section
           className="w-full py-12 md:py-24 lg:py-32 text-center"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -32,8 +32,8 @@ function Home() {
         </motion.section>
 
         {/* Features Section */}
-        <motion.section 
-          id="features" 
+        <motion.section
+          id="features"
           className="w-full py-12 md:py-24 bg-white text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -52,8 +52,8 @@ function Home() {
         </motion.section>
 
         {/* FAQ Section */}
-        <motion.section 
-          id="faq" 
+        <motion.section
+          id="faq"
           className="w-full py-12 md:py-24 bg-gray-50"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -81,7 +81,7 @@ function Home() {
 /* Feature Component */
 function Feature({ icon, title, description }) {
   return (
-    <motion.div 
+    <motion.div
       className="flex flex-col items-center text-center p-4 border rounded shadow"
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.3 }}
@@ -100,13 +100,13 @@ function FAQItem({ question, answer }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <motion.div 
+    <motion.div
       className="border rounded-lg shadow-md p-4"
       initial={{ opacity: 0.8 }}
       animate={{ opacity: 1 }}
     >
-      <button 
-        className="flex justify-between items-center w-full text-left font-medium text-indigo-600" 
+      <button
+        className="flex justify-between items-center w-full text-left font-medium text-indigo-600"
         onClick={() => setIsOpen(!isOpen)}
       >
         {question}
