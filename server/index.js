@@ -20,6 +20,7 @@ app.use("/v1", require("./router/currentUserRouter"));
 app.use("/v1", require("./router/getDocRouter"));
 app.use("/v1", require("./router/changeDocRouter"));
 app.use("/v1", require("./router/appointmentRouter"));
+app.use("/v1", require("./router/getAppointmentRouter"));
 
 app.get("/", (req, res) => {
   res.send("Hello World!2");
