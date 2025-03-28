@@ -74,7 +74,7 @@ export default function Contact() {
 
       {/* Success Popup */}
       {showPopup && (
-        <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded shadow-md">
+        <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded shadow-md">
           Message sent successfully!
         </div>
       )}
