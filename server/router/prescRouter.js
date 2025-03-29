@@ -78,9 +78,16 @@ router.post(
 );
 router.post("/images", async (req, res) => {
   try {
+    const { userId } = req.body; // Extract userId from request body
+
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required" });
+    }
+
     const images = await imageModel
-      .find({ userId: req.body })
+      .find({ userId })
       .select("-_id date reason imageUrl");
+
     return res.json(images);
   } catch (error) {
     console.error(error);
