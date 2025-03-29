@@ -23,12 +23,14 @@ const Login = () => {
     const handleLogin = async (data) => {
         try {
             const response = await axios.post("http://localhost:8080/v1/login", data);
-            let curToken = response.data.token;
+            if (response.data.success) {
+                let curToken = response.data.token;
 
-            localStorage.setItem('userToken', curToken);
-            setUser(response.data.user);  // Update context
+                localStorage.setItem('userToken', curToken);
+                setUser(response.data.user);  // Update context
 
-            navigate('/home', { replace: true });
+                navigate('/home', { replace: true });
+            }
         } catch (error) {
             console.error("Login error: ", error.response?.data || error.message);
             setIsError(true);
