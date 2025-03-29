@@ -1,6 +1,6 @@
 import React from "react";
 
-const AppointmentCardUser = ({ appointment, docName }) => {
+const AppointmentCardDoc = ({ appointment, docName }) => {
     if (!appointment) {
         return <p className="text-gray-600">No appointment data available.</p>;
     }
@@ -8,9 +8,6 @@ const AppointmentCardUser = ({ appointment, docName }) => {
     return (
         <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:shadow-lg transition">
             <h3 className="text-xl font-bold text-indigo-700 mb-2">Appointment Details</h3>
-            <p className="text-gray-600 mb-1">
-                <strong>Doctor:</strong> {docName || "Unknown"} {/* ✅ FIXED */}
-            </p>
             <p className="text-gray-600 mb-1">
                 <strong>Patient Name:</strong> {appointment.userName || "N/A"}
             </p>
@@ -38,4 +35,4 @@ const AppointmentCardUser = ({ appointment, docName }) => {
     );
 };
 
-export default AppointmentCardUser;
+export default AppointmentCardDoc;

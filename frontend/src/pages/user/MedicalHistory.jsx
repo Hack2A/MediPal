@@ -13,12 +13,46 @@ const MedicalRecords = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch user ID from localStorage
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const token = localStorage.getItem("userToken"); // Ensure token is available
+        const response = await axios.get("http://localhost:8080/v1/current-user", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const storedUserId = response.data.user._id; // Ensure user ID is stored
+
+        if (storedUserId) {
+          console.log("Fetched userId:", storedUserId);
+          setUserId(storedUserId);
+        } else {
+          console.error("User ID not found in API response");
+        }
+      } catch (error) {
+        console.error("Error fetching user ID:", error);
+      }
+    };
+
+    fetchUserId();
+  }, []);  // Runs once when the component mounts
+
+
   // Fetch images from backend
   useEffect(() => {
+    if (!userId) {
+      console.error("User ID is missing");
+      return;
+    }
+
     const fetchPrescriptions = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/images"); // ✅ API call
-        setPrescriptions(response.data); // ✅ Store fetched data
+        const response = await axios.post(
+          "http://localhost:8080/v1/images",
+          { userId: userId.toString() },
+          { headers: { Authorization: `Bearer ${localStorage.getItem("userToken")}` } }
+        );
+        setPrescriptions(response.data);
       } catch (error) {
         console.error("Error fetching prescriptions:", error);
         setError("Failed to load prescriptions.");
@@ -28,21 +62,7 @@ const MedicalRecords = () => {
     };
 
     fetchPrescriptions();
-  }, []);
-  // Fetch user ID from localStorage
-  useEffect(() => async () => {
-    const token = localStorage.getItem("userToken"); // Ensure token is available
-    const response = await axios.get("http://localhost:8080/v1/current-user", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const storedUserId = response.data.user._id; // Ensure user ID is stored in localStorage
-
-    if (storedUserId) {
-      setUserId(storedUserId);
-    } else {
-      console.error("User ID not found in localStorage");
-    }
-  }, []);
+  }, [userId]);  // Ensure useEffect runs when userId is available
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -61,7 +81,7 @@ const MedicalRecords = () => {
     setUploading(true);
     const formData = new FormData();
     formData.append("image", file);
-    formData.append("userId", userId);
+    formData.append("userId", userId.toString());
     formData.append("date", newPrescription.date);  // ✅ Added
     formData.append("reason", newPrescription.reason);  // ✅ Added
 
