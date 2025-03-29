@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from "../../contexts/UserContext"; // Import useUser
-import { EyeOff } from 'lucide-react';
+import { EyeOff, Eye } from 'lucide-react';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();

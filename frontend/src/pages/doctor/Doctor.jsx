@@ -1,5 +1,6 @@
 import React from "react";
 import useFetch from "../../hooks/useFetch";
+import { motion } from "framer-motion";
 
 const Doctor = () => {
     const { data: user, loading, error } = useFetch("http://localhost:8080/v1/current-user");
@@ -9,14 +10,20 @@ const Doctor = () => {
 
     return (
         <div className="w-full mx-auto p-8 bg-gradient-to-b from-blue-50 to-indigo-50 min-h-screen">
-            <div className="w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md flex items-center justify-around border border-indigo-300">
+            <motion.div
+                className="w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md flex items-center justify-around border border-indigo-300"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+            >
                 <div className="w-32 h-32 border-4 border-indigo-600 rounded-full overflow-hidden">
                     <img src="/illustrations/docmale.png" alt="Doctor Profile Photo" className="w-full h-full" />
                 </div>
                 <div className="">
                     <div>
                         <h1 className="text-3xl font-bold text-indigo-600">
-                            HELLO, Dr. {user.user.name.toUpperCase()}! 👋
+                            HELLO, Dr. {user.user.name}! 👋
                         </h1>
                     </div>
                     <div className="mt-5 ml-8">
@@ -31,9 +38,15 @@ const Doctor = () => {
                         </p>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
-            <div className="w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md items-center border border-indigo-300 mt-10">
+            <motion.div
+                className="w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md items-center border border-indigo-300 mt-10"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+            >
                 <div>
                     <h2 className="text-2xl font-semibold mb-4 text-indigo-600">Personal Details</h2>
                 </div>
@@ -66,8 +79,15 @@ const Doctor = () => {
                         <p>{user.user.language}</p>
                     </div>
                 </div>
-            </div>
-            <div className="w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md items-center border border-indigo-300 mt-10">
+            </motion.div>
+
+            <motion.div
+                className="w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md items-center border border-indigo-300 mt-10"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+            >
                 <div>
                     <h2 className="text-2xl font-semibold mb-4 text-indigo-600">Professional Details</h2>
                 </div>
@@ -97,7 +117,7 @@ const Doctor = () => {
                         <p>{user.user.fee}</p>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 };

@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Column */}
           <div>
-            <Link to="/" className="text-xl font-bold text-indigo-600 mb-4 block hover:text-indigo-700 transition">
+            <Link to="/" className="text-2xl font-bold text-indigo-600 mb-4 block hover:text-indigo-700 transition">
               MediPal
             </Link>
             <p className="text-gray-600">
@@ -18,11 +18,11 @@ export default function Footer() {
 
           {/* Platform Column */}
           <div>
-            <h3 className="text-lg font-semibold text-indigo-600 mb-4"></h3>
+            <h3 className="text-lg font-semibold text-indigo-600 mb-4">Platform</h3>
             <ul className="space-y-2">
-              <li><p className="text-gray-500 hover:text-indigo-600 transition"></p></li>
-              <li><p className="text-gray-500 hover:text-indigo-600 transition"></p></li>
-              <li><p className="text-gray-500 hover:text-indigo-600 transition"></p></li>
+              <li><Link to="/features" className="text-gray-500 hover:text-indigo-600 transition">Features</Link></li>
+              <li><Link to="/pricing" className="text-gray-500 hover:text-indigo-600 transition">Pricing</Link></li>
+              <li><Link to="/faq" className="text-gray-500 hover:text-indigo-600 transition">FAQ</Link></li>
             </ul>
           </div>
 
@@ -48,7 +48,7 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="flex flex-col sm:flex-row justify-between items-center mt-12 pt-8 border-t">
-          <p className="text-sm m-auto text-gray-500 sm:mb-1">
+          <p className="text-sm text-gray-500 sm:mb-0">
             © {new Date().getFullYear()} MediPal. All rights reserved.
           </p>
         </div>

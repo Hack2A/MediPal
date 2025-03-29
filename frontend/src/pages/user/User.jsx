@@ -1,5 +1,6 @@
 import React from "react";
 import useFetch from "../../hooks/useFetch";
+import { motion } from "framer-motion";
 
 const User = () => {
     const { data: user, loading, error } = useFetch("http://localhost:8080/v1/current-user");
@@ -12,7 +13,13 @@ const User = () => {
     return (
         <div className="w-full mx-auto p-8 bg-gradient-to-b from-blue-50 to-indigo-50 min-h-screen">
             {/* User Profile Section */}
-            <div className="w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md flex items-center justify-around border border-indigo-300">
+            <motion.div
+                className="w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md flex items-center justify-around border border-indigo-300"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+            >
                 <div className="w-32 h-32 border-4 border-indigo-600 rounded-full overflow-hidden">
                     <img src="https://img.freepik.com/premium-vector/body-patient-image-icon-flat-vector-clinic-examination_98396-69431.jpg" alt="User" className="w-full h-full" />
                 </div>
@@ -23,10 +30,16 @@ const User = () => {
                         <p className="text-lg text-gray-700"><strong>Gender :</strong> {user.user.gender}</p>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Personal Details Section */}
-            <div className="w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md items-center border border-indigo-300 mt-10">
+            <motion.div
+                className="w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md items-center border border-indigo-300 mt-10"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+            >
                 <div>
                     <h2 className="text-2xl font-semibold mb-4 text-indigo-600">Personal Details</h2>
                 </div>
@@ -50,10 +63,16 @@ const User = () => {
                         <p>{user.user.ephone}</p>
                     </div>
                 </div>
-            </div>
+            </motion.div>
 
             {/* Medical Details Section */}
-            <div className="w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md items-center border border-indigo-300 mt-10">
+            <motion.div
+                className="w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md items-center border border-indigo-300 mt-10"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+            >
                 <div>
                     <h2 className="text-2xl font-semibold mb-4 text-indigo-600">Medical Details</h2>
                 </div>
@@ -73,14 +92,14 @@ const User = () => {
                         <p><strong>:</strong></p>
                     </div>
                     <div>
-                        <p>{user.user.blood}</p>
-                        <p>{user.user.allergy}</p>
-                        <p>{user.user.chronic}</p>
-                        <p>{user.user.currentmed}</p>
-                        <p>{user.user.pastsur}</p>
+                        <p>{getUserData(user.user.blood)}</p>
+                        <p>{getUserData(user.user.allergy)}</p>
+                        <p>{getUserData(user.user.chronic)}</p>
+                        <p>{getUserData(user.user.currentmed)}</p>
+                        <p>{getUserData(user.user.pastsur)}</p>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 };
