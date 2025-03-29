@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
 const MedicalRecords = () => {
   const [newPrescription, setNewPrescription] = useState({ date: "", reason: "", image: "" });
@@ -141,10 +142,23 @@ const MedicalRecords = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto p-6 bg-gradient-to-b from-blue-50 to-indigo-50 min-h-screen">
-      <h1 className="text-3xl font-bold text-indigo-600 mb-6">Medical Records</h1>
+      <motion.h1
+        className="text-3xl font-bold text-indigo-600 mb-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        Medical Records
+      </motion.h1>
 
       {/* Add New Prescription */}
-      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
+      <motion.div
+        className="bg-white p-6 rounded-lg shadow-md mb-6"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
         <h2 className="text-2xl font-semibold mb-4 text-indigo-600">Add New Prescription</h2>
         <div className="grid gap-4">
           <input type="date" name="date" value={newPrescription.date} onChange={handleInputChange} className="border p-2 rounded w-full" />
@@ -155,10 +169,16 @@ const MedicalRecords = () => {
           </div>
           <button onClick={addPrescription} className="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Add Prescription</button>
         </div>
-      </div>
+      </motion.div>
 
       {/* Prescription List */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      <motion.div
+        className="bg-white p-6 rounded-lg shadow-md"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
         <div className="flex justify-between mb-4">
           <h2 className="text-2xl font-semibold text-indigo-600">Previous Prescriptions</h2>
           <div className="flex gap-2">
@@ -173,18 +193,19 @@ const MedicalRecords = () => {
         </div>
         <div className="overflow-x-auto flex gap-4 p-2">
           {sortedPrescriptions.map(prescription => (
-            <div key={prescription.id} className="border p-4 rounded-lg shadow-md bg-indigo-100 min-w-[200px] cursor-pointer">
+            <motion.div
+              key={prescription.id}
+              className="border p-4 rounded-lg shadow-md bg-indigo-100 min-w-[200px] cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+            >
               <p className="font-semibold">{prescription.date}</p>
               <p className="text-gray-700">{prescription.reason}</p>
               <img src={prescription.imageUrl} alt="Prescription" className="w-32 h-32 mt-2 rounded" />
-              <div className="flex justify-between mt-2">
-                <button onClick={() => deletePrescription(prescription.id)} className="bg-red-500 text-white px-3 py-1 rounded shadow hover:bg-red-700">Delete</button>
-                <button onClick={() => { setSelectedPrescription(prescription); setZoom(1); }} className="bg-blue-500 text-white px-3 py-1 rounded shadow hover:bg-blue-700">View</button>
-              </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

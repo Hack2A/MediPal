@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Shield } from "lucide-react";
+import { motion } from "framer-motion";
 
 function RegisterSelection() {
   const navigate = useNavigate();
@@ -26,38 +27,50 @@ function RegisterSelection() {
 
       {/* Main Content */}
       <div className="flex flex-1 justify-center items-center">
-        <div className="bg-white p-10 rounded-lg shadow-lg flex flex-col md:flex-row gap-8 w-full max-w-4xl min-h-[450px]">
-          
+        <motion.div
+          className="bg-white p-10 rounded-lg shadow-lg flex flex-col md:flex-row gap-8 w-full max-w-4xl min-h-[450px]"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
           {/* Illustration (Left Side) */}
           <div className="w-72 hidden md:flex justify-center items-center">
-            <img
+            <motion.img
               src={hovered === "doctor" ? "/illustrations/doctorrr.svg" : "/illustrations/patients.svg"}
               alt={hovered === "doctor" ? "Doctor" : "Patient"}
               className="w-full transition-all duration-300"
+              key={hovered}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
             />
           </div>
 
           {/* Selection Cards (Right Side) */}
           <div className="flex flex-col gap-6 flex-1 justify-center">
-            <div
+            <motion.div
               className="p-8 border rounded-lg shadow-md hover:shadow-lg cursor-pointer transition-all min-h-[150px] flex flex-col justify-center"
               onMouseEnter={() => setHovered("patient")}
               onClick={() => navigate("/registeruser")}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
             >
               <h2 className="text-2xl font-bold text-indigo-600">Register as a Patient</h2>
               <p className="text-gray-500 mt-2">Access healthcare and connect with doctors.</p>
-            </div>
+            </motion.div>
 
-            <div
+            <motion.div
               className="p-8 border rounded-lg shadow-md hover:shadow-lg cursor-pointer transition-all min-h-[150px] flex flex-col justify-center"
               onMouseEnter={() => setHovered("doctor")}
               onClick={() => navigate("/registerdoctor")}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
             >
               <h2 className="text-2xl font-bold text-purple-600">Register as a Doctor</h2>
               <p className="text-gray-500 mt-2">Join our network and consult with patients.</p>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

@@ -29,12 +29,11 @@ const DockComponent = () => {
 
     const doctorItems = [
         { icon: <VscHome size={18} className="text-white" />, label: "Home", onClick: () => navigate("/home") },
-        { icon: <ClipboardList size={18} className="text-white" />, label: "Patients", onClick: () => navigate("/patientslist") },
         { icon: <Calendar size={18} className="text-white" />, label: "Appointments", onClick: () => navigate("/appointment-doc") },
     ];
 
     return (
-        <div className="fixed bottom-0 w-full text-white">
+        <div className="fixed bottom-0 w-full text-white z-10">
             <Dock items={role === "Doctor" ? doctorItems : userItems} panelHeight={68} baseItemSize={50} magnification={70} />
         </div>
     );

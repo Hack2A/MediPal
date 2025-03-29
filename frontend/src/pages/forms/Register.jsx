@@ -5,6 +5,7 @@ import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import BloodGroupSelector from "../../components/BloodGroupSelector";
 import { useUser } from "../../contexts/UserContext"; // Import useUser
+import { motion } from "framer-motion";
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
@@ -81,11 +82,16 @@ const Register = () => {
 
     return (
         <div className="flex flex-col min-h-screen items-center justify-center bg-gray-100">
-            <div className="bg-white shadow-lg rounded-lg flex w-full max-w-5xl p-5 min-h-[80vh] my-3 relative">
+            <motion.div
+                className="bg-white shadow-lg rounded-lg flex w-full max-w-5xl p-5 min-h-[80vh] my-3 relative"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+            >
                 {/* Left Section - Illustration */}
                 <div className="flex w-1/2 justify-center items-center h-full flex-col">
                     {step === 1 ? "" : <button onClick={() => setStep(step - 1)} className="bg-indigo-600 font-bold text-white py-1 px-5 rounded-full absolute left-3 top-3 hover:cursor-pointer">Back</button>}
-                    <h2 className="text-2xl font-bold text-center mb-4">Welcome to HealthCare</h2>
+                    <h2 className="text-2xl font-bold text-center mb-4">Welcome to MediPal</h2>
                     <img src="/illustrations/patientReg.svg" alt="Medicine Illustration" className="my-auto" />
                 </div>
 
@@ -95,7 +101,13 @@ const Register = () => {
                     <hr className="mb-4" />
 
                     {step === 1 ? (
-                        <form onSubmit={handleSubmit(handleNext)} className="space-y-4">
+                        <motion.form
+                            onSubmit={handleSubmit(handleNext)}
+                            className="space-y-4"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
                             <div>
                                 <input
                                     type="text"
@@ -164,9 +176,15 @@ const Register = () => {
                                 </button>
                             </div>
                             <button type="submit" className="btn-primary">Next</button>
-                        </form>
+                        </motion.form>
                     ) : (step === 2 ? (
-                        <form onSubmit={handleSubmit(handleNext)} className="space-y-4">
+                        <motion.form
+                            onSubmit={handleSubmit(handleNext)}
+                            className="space-y-4"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
                             {/* Blood Group */}
                             <BloodGroupSelector register={register} />
 
@@ -255,9 +273,15 @@ const Register = () => {
                             </div>
 
                             <button type="submit" className="btn-primary">Next</button>
-                        </form>
+                        </motion.form>
                     ) : (
-                        <form onSubmit={handleSubmit(handleRegister)} className="space-y-4">
+                        <motion.form
+                            onSubmit={handleSubmit(handleRegister)}
+                            className="space-y-4"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
                             {/* Scrollable Terms & Conditions Section */}
                             <div className="border p-4 h-80 overflow-y-scroll bg-gray-50 rounded-md text-sm">
                                 <h3 className="text-lg font-semibold">Terms & Conditions</h3>
@@ -316,14 +340,13 @@ const Register = () => {
                             >
                                 Register
                             </button>
-                        </form>
+                        </motion.form>
 
                     ))}
                     <p className="text-center mt-4">Already registered? <Link to="/login" className="text-blue-600">Sign in</Link></p>
                 </div>
-            </div>
+            </motion.div>
         </div>
-
     );
 };
 
