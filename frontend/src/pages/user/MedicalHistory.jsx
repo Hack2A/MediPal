@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const MedicalRecords = () => {
   const [newPrescription, setNewPrescription] = useState({ date: "", reason: "", image: "" });
@@ -9,6 +9,7 @@ const MedicalRecords = () => {
   const [zoom, setZoom] = useState(1);
   const [uploading, setUploading] = useState(false);
   const [userId, setUserId] = useState(null);
+  const userIdRef = useRef(null);
   const [prescriptions, setPrescriptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,8 +25,8 @@ const MedicalRecords = () => {
         const storedUserId = response.data.user._id; // Ensure user ID is stored
 
         if (storedUserId) {
-          console.log("Fetched userId:", storedUserId);
           setUserId(storedUserId);
+          userIdRef.current = storedUserId; // Update ref
         } else {
           console.error("User ID not found in API response");
         }
@@ -37,11 +38,10 @@ const MedicalRecords = () => {
     fetchUserId();
   }, []);  // Runs once when the component mounts
 
-
   // Fetch images from backend
   useEffect(() => {
-    if (!userId) {
-      console.error("User ID is missing");
+    if (!userIdRef.current) {
+      console.log("User ID is missing");
       return;
     }
 
@@ -49,7 +49,7 @@ const MedicalRecords = () => {
       try {
         const response = await axios.post(
           "http://localhost:8080/v1/images",
-          { userId: userId.toString() },
+          { userId: userIdRef.current },
           { headers: { Authorization: `Bearer ${localStorage.getItem("userToken")}` } }
         );
         setPrescriptions(response.data);
@@ -73,7 +73,7 @@ const MedicalRecords = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    if (!userId) {
+    if (!userIdRef.current) {
       alert("User ID is missing! Please log in again.");
       return;
     }
@@ -81,7 +81,7 @@ const MedicalRecords = () => {
     setUploading(true);
     const formData = new FormData();
     formData.append("image", file);
-    formData.append("userId", userId.toString());
+    formData.append("userId", userIdRef.current.toString());
     formData.append("date", newPrescription.date);  // ✅ Added
     formData.append("reason", newPrescription.reason);  // ✅ Added
 
@@ -176,7 +176,7 @@ const MedicalRecords = () => {
             <div key={prescription.id} className="border p-4 rounded-lg shadow-md bg-indigo-100 min-w-[200px] cursor-pointer">
               <p className="font-semibold">{prescription.date}</p>
               <p className="text-gray-700">{prescription.reason}</p>
-              <img src={prescription.image} alt="Prescription" className="w-32 h-32 mt-2 rounded" />
+              <img src={prescription.imageUrl} alt="Prescription" className="w-32 h-32 mt-2 rounded" />
               <div className="flex justify-between mt-2">
                 <button onClick={() => deletePrescription(prescription.id)} className="bg-red-500 text-white px-3 py-1 rounded shadow hover:bg-red-700">Delete</button>
                 <button onClick={() => { setSelectedPrescription(prescription); setZoom(1); }} className="bg-blue-500 text-white px-3 py-1 rounded shadow hover:bg-blue-700">View</button>
