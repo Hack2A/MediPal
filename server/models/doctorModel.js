@@ -66,10 +66,7 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       require: [true, "Clinic Location is required"],
     },
-    location: {
-      type: { type: String, default: "Point" },
-      coordinates: [Number], // [longitude, latitude]
-    },
+
     availability: [{ type: String, required: true }],
 
     fee: {
@@ -84,6 +81,5 @@ const doctorSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-doctorSchema.index({ location: "2dsphere" });
 
 module.exports = mongoose.model("doctors", doctorSchema);
