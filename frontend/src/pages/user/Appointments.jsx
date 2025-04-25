@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import AppointmentCardUser from "../../components/AppointmentCardUser";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const Appointments = () => {
     const { data: upcomingApt, loading: uloading, error: uerror } = useFetch("http://localhost:8080/v1/upcomming-appointments");
@@ -13,6 +14,7 @@ const Appointments = () => {
     const pAppointments = pastApt?.PastAppointments || []; // Ensure correct key for past appointments
 
     const displayedAppointments = showUpcoming ? uAppointments : pAppointments;
+
 
     return (
         <div className="w-full max-w-6xl mx-auto p-6 bg-gradient-to-b from-blue-50 to-indigo-50 min-h-screen">
