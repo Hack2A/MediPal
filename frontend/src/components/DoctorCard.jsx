@@ -5,6 +5,13 @@ const DoctorCard = ({ doctor }) => {
     const [appointmentDate, setAppointmentDate] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const today = new Date();
+    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+    // Format as YYYY-MM-DD in local time
+    const formatDate = (date) => {
+        return date.toLocaleDateString('en-CA'); // 'en-CA' = YYYY-MM-DD format
+    };
 
     const handleAppointment = async () => {
         if (!appointmentDate) {
@@ -89,8 +96,8 @@ const DoctorCard = ({ doctor }) => {
                     className="border border-gray-300 rounded-md p-2 mb-4 w-full focus:ring-2 focus:ring-indigo-500 focus:outline-none"
                     value={appointmentDate}
                     onChange={(e) => setAppointmentDate(e.target.value)}
-                    min={new Date().toISOString().split("T")[0]} // Restrict to current date or later
-                    max={new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).toISOString().split("T")[0]} // Restrict to the current month
+                    min={formatDate(today)}
+                    max={formatDate(endOfMonth)}
                 />
 
                 {error && <p className="text-red-600 mb-2">{error}</p>}
