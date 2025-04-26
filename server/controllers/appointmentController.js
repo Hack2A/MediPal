@@ -47,9 +47,12 @@ const appointmentController = async (req, res) => {
         Regards,
         Your Appointment System`;
 
+    console.log("Before sending email...");
     await sendEmail(doctor.email, emailSubject, emailText);
+    console.log("After sending email...");
 
-    return res.json({
+    return res.status(201).json({
+      success: true,
       message: "Appointment booked successfully, doctor notified via email",
       appointment,
       docName,
@@ -57,7 +60,7 @@ const appointmentController = async (req, res) => {
   } catch (error) {
     return res
       .status(500)
-      .json({ message: "Server error", error: error.message });
+      .json({ message: "Server error", error: error.message, success: false });
   }
 };
 
