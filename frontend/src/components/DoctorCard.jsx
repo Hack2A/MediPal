@@ -61,9 +61,7 @@ const DoctorCard = ({ doctor }) => {
             );
 
             alert("Appointment booked successfully!");
-            console.log("Appointment Response:", bookResponse.data);
         } catch (err) {
-            console.error("Error booking appointment:", err);
             setError(err.response?.data?.message || "Something went wrong!");
         } finally {
             setLoading(false);

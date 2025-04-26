@@ -2,10 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const AppointmentCardUser = ({ appointment }) => {
-
-    console.log(appointment, "appointment data in card");
-
-
     if (!appointment) {
         return <p className="text-gray-600">No appointment data available.</p>;
     }

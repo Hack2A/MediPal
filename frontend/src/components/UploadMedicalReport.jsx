@@ -51,7 +51,6 @@ const UploadMedicalReport = () => {
         },
       });
 
-      console.log("Upload response:", response.data);
       setImageUrl(response.data.imageUrl);
       alert("File uploaded successfully!");
     } catch (error) {
