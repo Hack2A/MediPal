@@ -40,9 +40,9 @@ const ChatBotBtn = () => {
     }, [messages]);
 
     return (
-        <div className="fixed bottom-4 right-4">
+        <div className="fixed bottom-4 right-4 z-50">
             <motion.button
-                className="bg-white p-4 rounded-full shadow-md border-1 border-indigo-600 hover:bg-indigo-600"
+                className="bg-white p-4 rounded-full shadow-md border-1 border-indigo-600 hover:bg-indigo-600 hover:cursor-pointer"
                 onClick={toggleChat}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}

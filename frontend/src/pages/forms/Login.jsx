@@ -50,7 +50,7 @@ const Login = () => {
                 {/* Right Section - Form */}
                 <div className="w-full md:w-1/2 p-6">
                     <h2 className="text-2xl font-bold text-gray-800 mb-6">Welcome Bank!</h2>
-                    <form className="space-y-4" onSubmit={handleSubmit(handleLogin)}>
+                    <form className="space-y-4" onSubmit={handleSubmit(handleLogin)} onChange={() => { setIsError(false) }}>
                         <div>
                             <input
                                 type="email"
@@ -74,6 +74,11 @@ const Login = () => {
                                 {showPassword ? <Eye /> : <EyeOff />}
                             </button>
                         </div>
+
+                        {isError && (
+                            <div className="text-red-500 text-sm mt-2">{error}</div>
+                        )}
+
                         <button className="btn-primary" type="submit">
                             Log in
                         </button>
