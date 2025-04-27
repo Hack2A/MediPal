@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { MapPinned } from 'lucide-react';
+import { useEffect } from "react";
 
 const DoctorCard = ({ doctor }) => {
     const [appointmentDate, setAppointmentDate] = useState("");
@@ -7,11 +9,21 @@ const DoctorCard = ({ doctor }) => {
     const [error, setError] = useState(null);
     const today = new Date();
     const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    const [mapURL, setMapURL] = useState(''); // Initialize mapURL state
 
     // Format as YYYY-MM-DD in local time
     const formatDate = (date) => {
         return date.toLocaleDateString('en-CA'); // 'en-CA' = YYYY-MM-DD format
     };
+
+    useEffect(() => {
+        const response = async () => {
+            const res = await axios.post("http://localhost:8080/v1/maps", { address: doctor.clinicname + " " + doctor.clinicloc });
+            setMapURL(res.data.mapsUrl);
+        }
+        response();
+    }, [])
+
 
     const handleAppointment = async () => {
         if (!appointmentDate) {
@@ -76,7 +88,12 @@ const DoctorCard = ({ doctor }) => {
         <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:shadow-lg transition flex flex-col md:flex-row gap-6">
             {/* Left Section */}
             <div className="flex-1">
-                <h3 className="text-2xl font-bold text-indigo-700 mb-2">{doctor.name}</h3>
+                <a href={mapURL} target="_blank" className="hover:cursor-pointer" rel="noopener noreferrer">
+                    <h3 className="text-2xl font-bold text-indigo-700 mb-2 flex gap-2 items-center">
+                        <MapPinned />
+                        {doctor.name}
+                    </h3>
+                </a>
                 <p className="text-gray-600 mb-1"><strong>Degree:</strong> {doctor.degree}</p>
                 <p className="text-gray-600 mb-1"><strong>Experience:</strong> {doctor.yoe} years</p>
                 <p className="text-gray-600 mb-1"><strong>Clinic:</strong> {doctor.clinicname} ({doctor.clinicloc})</p>

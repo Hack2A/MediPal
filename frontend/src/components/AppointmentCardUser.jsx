@@ -29,7 +29,9 @@ const AppointmentCardUser = ({ appointment }) => {
                 <span
                     className={`font-semibold ${appointment.status === "Confirmed"
                         ? "text-green-600"
-                        : "text-yellow-600"
+                        : appointment.status === "Rejected"
+                            ? "text-red-600"
+                            : "text-yellow-600"
                         }`}
                 >
                     {appointment.status || "N/A"}

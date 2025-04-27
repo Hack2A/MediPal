@@ -8,6 +8,6 @@ const mapsIntegrate = (req, res) => {
   const encodedAddress = encodeURIComponent(address);
   const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
 
-  res.json({ mapsUrl: googleMapsUrl });
+  res.status(200).json({ mapsUrl: googleMapsUrl });
 };
 module.exports = mapsIntegrate;

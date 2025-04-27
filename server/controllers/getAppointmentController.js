@@ -61,7 +61,7 @@ const getDocUpcommingAppointments = async (req, res) => {
       appointmentDate: { $gte: today }, // Fetch appointments before today
     }).sort({ appointmentDate: 1 }); // Sort in descending order (latest first)
 
-    return res.json({ UpcommingAppointments });
+    return res.status(200).json({ UpcommingAppointments });
   } catch (error) {
     return res
       .status(500)
