@@ -1,8 +1,7 @@
 const userModel = require("../models/userModel");
 const appointmentModel = require("../models/appointmentModel");
-const sendEmail = require("../utils/emailService");
 const doctorModel = require("../models/doctorModel");
-
+const { sendEmail } = require("../utils/emailService");
 // Book an appointment & Notify Doctor
 const appointmentController = async (req, res) => {
   const { doctorId, userId, appointmentDate, timeSlot } = req.body;
@@ -12,7 +11,7 @@ const appointmentController = async (req, res) => {
     if (!doctor) {
       return res.status(404).json({ message: "Doctor not found" });
     }
-    const docName = doctor.name;
+    const doctorName = doctor.name;
     const user = await userModel.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -23,7 +22,7 @@ const appointmentController = async (req, res) => {
       userId,
       userName: user.name,
       userEmail: user.email,
-      docName: doctor.name,
+      doctorName,
       docEmail: doctor.email,
       appointmentDate,
       timeSlot,
@@ -52,7 +51,6 @@ const appointmentController = async (req, res) => {
     return res.json({
       message: "Appointment booked successfully, doctor notified via email",
       appointment,
-      docName,
     });
   } catch (error) {
     return res
