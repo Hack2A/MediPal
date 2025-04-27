@@ -49,6 +49,25 @@ const appointmentController = async (req, res) => {
     console.log("Before sending email...");
     await sendEmail(doctor.email, emailSubject, emailText);
     console.log("After sending email...");
+    const patientEmailSubject = "Appointment Booked Successfully";
+    const patientEmailText = `Hello ${user.name},
+
+Your appointment has been successfully booked:
+
+- Doctor: Dr. ${doctor.name}
+- Date: ${new Date(appointmentDate).toLocaleDateString()}
+- Time Slot: ${timeSlot}
+
+We will notify you once the doctor confirms the appointment.
+
+Thank you for using our service!
+
+Regards,
+Your Appointment System`;
+
+    console.log("Before sending email to patient...");
+    await sendEmail(user.email, patientEmailSubject, patientEmailText);
+    console.log("After sending email to patient...");
 
     return res.status(201).json({
       success: true,
