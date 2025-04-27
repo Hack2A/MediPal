@@ -23,14 +23,12 @@ const DoctorCard = ({ doctor }) => {
             setLoading(true);
             setError(null);
 
-            // Get user token
             const token = localStorage.getItem("userToken");
             if (!token) {
                 setError("User is not authenticated.");
                 return;
             }
 
-            // Fetch current user details
             const response = await axios.get("http://localhost:8080/v1/current-user", {
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -43,14 +41,13 @@ const DoctorCard = ({ doctor }) => {
             const UserID = user._id;
             const DoctorID = doctor._id;
 
-            // Book appointment
             const bookResponse = await axios.post(
                 "http://localhost:8080/v1/book-appointment",
                 {
                     userId: UserID,
                     doctorId: DoctorID,
                     appointmentDate,
-                    timeSlot: doctor.availability[0] // Assuming first available slot
+                    timeSlot: doctor.availability[0]
                 },
                 {
                     headers: {
@@ -60,13 +57,20 @@ const DoctorCard = ({ doctor }) => {
                 }
             );
 
-            alert("Appointment booked successfully!");
+            if (bookResponse.data.success) {
+                alert("Appointment booked successfully!");
+            } else {
+                throw new Error(bookResponse.data.message || "Failed to book appointment.");
+            }
+
         } catch (err) {
-            setError(err.response?.data?.message || "Something went wrong!");
+            console.error("Error booking appointment:", err);
+            setError(err.response?.data?.message || err.message || "Something went wrong!");
         } finally {
             setLoading(false);
         }
     };
+
 
     return (
         <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:shadow-lg transition flex flex-col md:flex-row gap-6">
