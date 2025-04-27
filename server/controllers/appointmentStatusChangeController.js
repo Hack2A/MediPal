@@ -1,5 +1,5 @@
 const appointmentModel = require("../models/appointmentModel");
-const { sendEmail } = require("../utils/emailService"); // 🛠️ make sure to import sendEmail
+const { sendEmail } = require("../utils/emailService"); // 🛠 make sure to import sendEmail
 
 const setAppointmentStatus = async (req, res) => {
   const { appointmentId, status } = req.body;

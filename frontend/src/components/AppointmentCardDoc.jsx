@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
 
 const AppointmentCardDoc = ({ appointment: initialAppointment, docName }) => {
     const [appointment, setAppointment] = useState(initialAppointment); // Manage local appointment state
@@ -16,7 +16,7 @@ const AppointmentCardDoc = ({ appointment: initialAppointment, docName }) => {
                 { appointmentId, status },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization:` Bearer ${token}`,
                         "Content-Type": "application/json",
                     },
                 }

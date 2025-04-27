@@ -28,7 +28,6 @@ const otpVerifyController = async (req, res) => {
 // Book an appointment & Notify Doctor
 const otpGenerateController = async (req, res) => {
   const email = req.body.email;
-  const name = req.body.name;
 
   try {
     const otp = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
@@ -38,7 +37,7 @@ const otpGenerateController = async (req, res) => {
     otpStore.set(email, { otp, expiresAt });
 
     const emailSubject = "MediPal OTP Verification";
-    const emailText = `Hello Costumer ${name},
+    const emailText = `Hello Costumer,
 
         Your OTP for verification is ${otp}. It is valid for 5 minutes.
         Please do not share this OTP with anyone.
