@@ -8,7 +8,6 @@ const DoctorCard = ({ doctor }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const today = new Date();
-    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     const [mapURL, setMapURL] = useState(''); // Initialize mapURL state
 
     // Format as YYYY-MM-DD in local time
@@ -116,7 +115,6 @@ const DoctorCard = ({ doctor }) => {
                     value={appointmentDate}
                     onChange={(e) => setAppointmentDate(e.target.value)}
                     min={formatDate(today)}
-                    max={formatDate(endOfMonth)}
                 />
 
                 {error && <p className="text-red-600 mb-2">{error}</p>}

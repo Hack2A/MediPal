@@ -22,7 +22,6 @@ const useFetch = (endpoint, options = {}) => {
         const docName = fetchedData.docName || "Unknown"; // Avoid undefined errors
 
         setData({ ...fetchedData, docName });
-        console.log("Fetched docName:", docName);
       } catch (err) {
         setError(err.response?.data || "An error occurred");
       } finally {
