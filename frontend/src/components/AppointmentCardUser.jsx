@@ -10,7 +10,7 @@ const AppointmentCardUser = ({ appointment }) => {
         <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:shadow-lg transition">
             <h3 className="text-xl font-bold text-indigo-700 mb-2">Appointment Details</h3>
             <p className="text-gray-600 mb-1">
-                <strong>Doctor:</strong> {appointment.docName || "Unknown"} {/* ✅ FIXED */}
+                <strong>Doctor:</strong> {appointment.doctorName || "Unknown"} {/* ✅ FIXED */}
             </p>
             <p className="text-gray-600 mb-1">
                 <strong>Patient Name:</strong> {appointment.userName || "N/A"}
