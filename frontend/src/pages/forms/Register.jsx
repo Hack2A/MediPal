@@ -81,7 +81,7 @@ const Register = () => {
     };
 
     return (
-        <div className="flex flex-col min-h-screen items-center justify-center bg-gray-100">
+        <div className="flex flex-col items-center justify-center bg-gray-100">
             <motion.div
                 className="bg-white shadow-lg rounded-lg flex w-full max-w-5xl p-5 min-h-[80vh] my-3 relative"
                 initial={{ opacity: 0, y: 30 }}
