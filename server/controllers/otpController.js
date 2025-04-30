@@ -17,8 +17,7 @@ const otpVerifyController = async (req, res) => {
   }
 
   if (otp.toString() === storedOtp) {
-    // 🔥 FIXED here
-    otpStore.delete(email); // optional: remove OTP after successful verification
+    otpStore.delete(email);
     return res.json({ message: "OTP verified successfully" });
   } else {
     return res.status(400).json({ message: "Invalid OTP" });
