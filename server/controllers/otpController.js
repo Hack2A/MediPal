@@ -51,6 +51,7 @@ const otpGenerateController = async (req, res) => {
     await otpService(email, emailSubject, emailText);
 
     return res.json({
+      success: true,
       message: "OTP sent successfully, please check your email",
       otp,
     });
