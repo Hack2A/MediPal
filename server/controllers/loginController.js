@@ -10,7 +10,7 @@ const loginController = async (req, res) => {
     let user = await userModel.findOne({ email });
 
     if (!user) {
-      user = await doctorModel.findOne({ email }); // Check doctors collection
+      user = await doctorModel.findOne({ email }); 
     }
 
     if (!user) {

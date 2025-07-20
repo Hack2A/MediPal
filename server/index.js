@@ -1,17 +1,26 @@
 const express = require("express");
 const connectDB = require("./db");
-
-const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-dotenv.config();
 const cors = require("cors");
-const app = express();
-const port = process.env.PORT;
+const bodyParser = require("body-parser");
 
-app.use(express.json());
-app.use(cors());
-app.use(bodyParser.json());
+dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 8080; // fallback just in case
+
+// ✅ Connect to MongoDB
 connectDB();
+
+// ✅ Middleware
+app.use(cors({
+  origin: "https://akshatp17.github.io", // ✔️ GitHub Pages correct origin
+  credentials: true
+}));
+app.use(express.json());
+app.use(bodyParser.json());
+
+// ✅ Routes
 app.use("/v1", require("./router/authRouter"));
 app.use("/v1", require("./router/doctorRegRouter"));
 app.use("/v1", require("./router/loginRouter"));
@@ -25,10 +34,12 @@ app.use("/v1", require("./router/prescRouter"));
 app.use("/v1", require("./router/mapRouter"));
 app.use("/v1", require("./router/otpRouter"));
 
+// ✅ Health Check / Root Route
 app.get("/", (req, res) => {
-  res.send("Hello World!2");
+  res.send("Server is running ✅");
 });
 
+// ✅ Start Server
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Server listening on port ${port}`);
 });
