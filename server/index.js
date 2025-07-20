@@ -29,7 +29,7 @@ app.use("/v1", require("./router/mapRouter"));
 app.use("/v1", require("./router/otpRouter"));
 
 app.get("/", (req, res) => {
-  res.send("Hello World!2");
+  res.send("Hello World!");
 });
 
 app.listen(port, () => {
