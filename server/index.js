@@ -10,7 +10,7 @@ const port = process.env.PORT;
 
 app.use(express.json());
 app.use(cors({
-  origin: "https://akshatp17.github.io",
+  origin: "https://hack2a.github.io/MediPal",
   credentials: true
 }));
 app.use(bodyParser.json());
