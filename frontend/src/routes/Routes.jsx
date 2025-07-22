@@ -26,7 +26,7 @@ const Consent = lazy(() => import("../pages/static/consent"));
 const Cookies = lazy(() => import("../pages/static/cookies"));
 const AppRoutes = () => {
     return (
-        <Router>
+        <Router basename="/MediPal">
             <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                     <Route path="/" element={

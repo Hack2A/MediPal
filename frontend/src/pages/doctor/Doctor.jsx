@@ -3,7 +3,7 @@ import useFetch from "../../hooks/useFetch";
 import { motion } from "framer-motion";
 
 const Doctor = () => {
-    const { data: user, loading, error } = useFetch("http://localhost:8080/v1/current-user");
+    const { data: user, loading, error } = useFetch("https://hacknocturne-medipal.onrender.com/current-user");
 
     if (loading) return <p className="text-center text-xl text-indigo-600">Loading...</p>;
     if (error) return <p className="text-center text-xl text-red-500">Error fetching user data</p>;

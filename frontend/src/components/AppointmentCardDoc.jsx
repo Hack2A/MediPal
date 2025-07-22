@@ -14,7 +14,7 @@ const AppointmentCardDoc = ({ appointment: initialAppointment, docName }) => {
         setLoading(true); // Start loading
         try {
             const response = await axios.patch(
-                "http://localhost:8080/v1/update-appointment-status",
+                "https://hacknocturne-medipal.onrender.com/update-appointment-status",
                 { appointmentId, status },
                 {
                     headers: {
@@ -45,7 +45,7 @@ const AppointmentCardDoc = ({ appointment: initialAppointment, docName }) => {
         setLoading(true); // Start loading
         try {
             const response = await axios.patch(
-                "http://localhost:8080/v1/update-appointment-status",
+                "https://hacknocturne-medipal.onrender.com/update-appointment-status",
                 { appointmentId, status },
                 {
                     headers: {
@@ -81,10 +81,10 @@ const AppointmentCardDoc = ({ appointment: initialAppointment, docName }) => {
                 <strong>Status:</strong>{" "}
                 <span
                     className={`font-semibold ${appointment.status === "Confirmed"
-                            ? "text-green-600"
-                            : appointment.status === "Rejected"
-                                ? "text-red-600"
-                                : "text-yellow-600"
+                        ? "text-green-600"
+                        : appointment.status === "Rejected"
+                            ? "text-red-600"
+                            : "text-yellow-600"
                         }`}
                 >
                     {appointment.status || "N/A"}

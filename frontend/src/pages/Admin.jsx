@@ -4,7 +4,7 @@ import useFetch from "../hooks/useFetch";
 import axios from "axios";
 
 const Admin = () => {
-    const { data, loading, error, reFetch } = useFetch("http://localhost:8080/v1/getunder");
+    const { data, loading, error, reFetch } = useFetch("https://hacknocturne-medipal.onrender.com/getunder");
     const [doctors, setDoctors] = useState([]);
 
     // Update doctors when data is fetched
@@ -22,7 +22,7 @@ const Admin = () => {
 
             // API call to update verification status
             await axios.put(
-                `http://localhost:8080/v1/change-verify`,
+                `https://hacknocturne-medipal.onrender.com/change-verify`,
                 { id: doctorId, verify: action === "accept" ? "Verified" : "Rejected" },
                 {
                     headers: {

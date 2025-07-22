@@ -27,7 +27,7 @@ const Register = () => {
     const handleRegister = async (data) => {
         const finalData = { ...formData, ...data };
         try {
-            const response = await axios.post("http://localhost:8080/v1/registerdoc", finalData);
+            const response = await axios.post("https://hacknocturne-medipal.onrender.com/registerdoc", finalData);
             if (response.data.success) {
                 localStorage.setItem("userToken", response.data.token);
                 setUser(response.data.user);  // Update user context after login
