@@ -11,7 +11,6 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(cors({
   origin: "https://hack2a.github.io",
-  credentials: true
 }));
 app.options("*", cors());
 app.use(bodyParser.json());
