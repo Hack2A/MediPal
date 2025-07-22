@@ -17,7 +17,7 @@ export const UserProvider = ({ children }) => {
                     return;
                 }
 
-                const response = await axios.get("https://hacknocturne-medipal.onrender.com/current-user", {
+                const response = await axios.get("https://hacknocturne-medipal.onrender.com/v1/current-user", {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 

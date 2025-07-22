@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import axios from "axios";
 
 const Appointments = () => {
-    const { data: upcomingApt, loading: uloading, error: uerror } = useFetch("https://hacknocturne-medipal.onrender.com/upcomming-appointments");
-    const { data: pastApt, loading: ploading, error: perror } = useFetch("https://hacknocturne-medipal.onrender.com/past-appointments");
+    const { data: upcomingApt, loading: uloading, error: uerror } = useFetch("https://hacknocturne-medipal.onrender.com/v1/upcomming-appointments");
+    const { data: pastApt, loading: ploading, error: perror } = useFetch("https://hacknocturne-medipal.onrender.com/v1/past-appointments");
 
     const [showUpcoming, setShowUpcoming] = useState(true); // Toggle State
 

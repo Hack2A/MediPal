@@ -20,7 +20,7 @@ const MedicalRecords = () => {
     const fetchUserId = async () => {
       try {
         const token = localStorage.getItem("userToken"); // Ensure token is available
-        const response = await axios.get("https://hacknocturne-medipal.onrender.com/current-user", {
+        const response = await axios.get("https://hacknocturne-medipal.onrender.com/v1/current-user", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const storedUserId = response.data.user._id; // Ensure user ID is stored
@@ -49,7 +49,7 @@ const MedicalRecords = () => {
     const fetchPrescriptions = async () => {
       try {
         const response = await axios.post(
-          "https://hacknocturne-medipal.onrender.com/images",
+          "https://hacknocturne-medipal.onrender.com/v1/images",
           { userId: userIdRef.current },
           { headers: { Authorization: `Bearer ${localStorage.getItem("userToken")}` } }
         );
@@ -87,7 +87,7 @@ const MedicalRecords = () => {
     formData.append("reason", newPrescription.reason);  // ✅ Added
 
     try {
-      const response = await axios.post("https://hacknocturne-medipal.onrender.com/upload", formData, {
+      const response = await axios.post("https://hacknocturne-medipal.onrender.com/v1/upload", formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("userToken")}`,
           "Content-Type": "multipart/form-data",

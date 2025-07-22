@@ -14,7 +14,7 @@ const AppointmentCardDoc = ({ appointment: initialAppointment, docName }) => {
         setLoading(true); // Start loading
         try {
             const response = await axios.patch(
-                "https://hacknocturne-medipal.onrender.com/update-appointment-status",
+                "https://hacknocturne-medipal.onrender.com/v1/update-appointment-status",
                 { appointmentId, status },
                 {
                     headers: {
@@ -45,7 +45,7 @@ const AppointmentCardDoc = ({ appointment: initialAppointment, docName }) => {
         setLoading(true); // Start loading
         try {
             const response = await axios.patch(
-                "https://hacknocturne-medipal.onrender.com/update-appointment-status",
+                "https://hacknocturne-medipal.onrender.com/v1/update-appointment-status",
                 { appointmentId, status },
                 {
                     headers: {

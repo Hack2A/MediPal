@@ -27,7 +27,7 @@ const Login = () => {
 
     const handleLogin = async (data) => {
         try {
-            const response = await axios.post("https://hacknocturne-medipal.onrender.com/login", {
+            const response = await axios.post("https://hacknocturne-medipal.onrender.com/v1/login", {
                 email: data.email,
                 password: data.password
             });
@@ -57,7 +57,7 @@ const Login = () => {
 
         setLoadingOtp(true);
         try {
-            const response = await axios.post("https://hacknocturne-medipal.onrender.com/get-otp", { email });
+            const response = await axios.post("https://hacknocturne-medipal.onrender.com/v1/get-otp", { email });
 
             if (response.data.success) {
                 setOtpSent(true);
@@ -89,7 +89,7 @@ const Login = () => {
         setVerifyingOtp(true);
         try {
             console.log("Verifying OTP for email:", email, "with OTP:", otp);
-            const response = await axios.post("https://hacknocturne-medipal.onrender.com/verify-otp", { email, otp });
+            const response = await axios.post("https://hacknocturne-medipal.onrender.com/v1/verify-otp", { email, otp });
             console.log("OTP verification response:", response.data);
 
             if (response.data.success) {

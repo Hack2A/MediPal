@@ -67,7 +67,7 @@ const Register = () => {
         console.log(finalData);
 
         try {
-            const response = await axios.post("https://hacknocturne-medipal.onrender.com/register", finalData);
+            const response = await axios.post("https://hacknocturne-medipal.onrender.com/v1/register", finalData);
             if (response.data.success) {
                 localStorage.setItem("userToken", response.data.token);
                 setUser(response.data.user); // Update context
