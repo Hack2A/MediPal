@@ -17,7 +17,7 @@ const DoctorCard = ({ doctor }) => {
 
     useEffect(() => {
         const response = async () => {
-            const res = await axios.post("http://localhost:8080/v1/maps", { address: doctor.clinicname + " " + doctor.clinicloc });
+            const res = await axios.post("https://hacknocturne-medipal.onrender.com/v1/maps", { address: doctor.clinicname + " " + doctor.clinicloc });
             setMapURL(res.data.mapsUrl);
         }
         response();
@@ -40,7 +40,7 @@ const DoctorCard = ({ doctor }) => {
                 return;
             }
 
-            const response = await axios.get("http://localhost:8080/v1/current-user", {
+            const response = await axios.get("https://hacknocturne-medipal.onrender.com/v1/current-user", {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -53,7 +53,7 @@ const DoctorCard = ({ doctor }) => {
             const DoctorID = doctor._id;
 
             const bookResponse = await axios.post(
-                "http://localhost:8080/v1/book-appointment",
+                "https://hacknocturne-medipal.onrender.com/v1/book-appointment",
                 {
                     userId: UserID,
                     doctorId: DoctorID,

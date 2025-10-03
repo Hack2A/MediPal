@@ -23,7 +23,7 @@ const ChatBotBtn = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:8080/v1/chatbot', { prompt: input });
+            const response = await axios.post('https://hacknocturne-medipal.onrender.com/v1/chatbot', { prompt: input });
 
             const botResponse = { text: response.data.response, sender: 'bot' };
             setMessages((prevMessages) => [...prevMessages, botResponse]);

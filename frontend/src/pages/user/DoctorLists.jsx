@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import { motion } from "framer-motion";
 
 const DoctorLists = () => {
-    const { data, loading, error } = useFetch("http://localhost:8080/v1/getverified");
+    const { data, loading, error } = useFetch("https://hacknocturne-medipal.onrender.com/v1/getverified");
 
     if (loading) return <p className="text-blue-500">Loading doctors...</p>;
     if (error) return <p className="text-red-500">Error: {error}</p>;

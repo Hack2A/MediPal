@@ -4,8 +4,8 @@ import AppointmentCardDoc from "../../components/AppointmentCardDoc";
 import { motion } from "framer-motion";
 
 const Appointments = () => {
-    const { data: upcomingApt, loading: uloading, error: uerror } = useFetch("http://localhost:8080/v1/upcomming-doc-appointments");
-    const { data: pastApt, loading: ploading, error: perror } = useFetch("http://localhost:8080/v1/past-doc-appointments");
+    const { data: upcomingApt, loading: uloading, error: uerror } = useFetch("https://hacknocturne-medipal.onrender.com/v1/upcomming-doc-appointments");
+    const { data: pastApt, loading: ploading, error: perror } = useFetch("https://hacknocturne-medipal.onrender.com/v1/past-doc-appointments");
 
     const [showUpcoming, setShowUpcoming] = useState(true); // Toggle State
 

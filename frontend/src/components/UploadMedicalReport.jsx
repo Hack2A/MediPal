@@ -10,7 +10,7 @@ const UploadMedicalReport = () => {
   // Fetch user ID from localStorage when component mounts
   useEffect(() => async () => {
     const token = localStorage.getItem("userToken"); // Ensure token is available
-    const response = await axios.get("http://localhost:8080/v1/current-user", {
+    const response = await axios.get("https://hacknocturne-medipal.onrender.com/v1/current-user", {
       headers: { Authorization: `Bearer ${token}` },
     });
     const storedUserId = response.data.user._id; // Ensure user ID is stored in localStorage
@@ -44,7 +44,7 @@ const UploadMedicalReport = () => {
     formData.append("userId", userId); // ✅ Dynamically adding userId
 
     try {
-      const response = await axios.post("http://localhost:8080/v1/upload", formData, {
+      const response = await axios.post("https://hacknocturne-medipal.onrender.com/v1/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("userToken")}`, // ✅ Ensure token is available
