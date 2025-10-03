@@ -9,12 +9,12 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8080; // fallback just in case
 
-// ✅ Connect to MongoDB
+// ✅ Connect to MongoDB  
 connectDB();
 
 // ✅ Middleware
 app.use(cors({
-  origin: "https://akshatp17.github.io", // ✔️ GitHub Pages correct origin
+  origin: "https://hack2a.github.io/MediPal", // ✔️ GitHub Pages correct origin
   credentials: true
 }));
 app.use(express.json());
